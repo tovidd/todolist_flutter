@@ -1,57 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class TodoListType {
-  final int id;
-  final String judul;
-  final String deskripsi;
+import '../bloc/todolist/todolist_provider.dart';
+import '../bloc/todolist/todolist_bloc.dart';
+import '../model/todolist/todolist_model.dart';
+import '../model/todolist/todolist_response_model.dart';
 
-  TodoListType(this.id, this.judul, this.deskripsi);
-}
 
-class TodolistScreen extends StatefulWidget {
+class TodolistScreen extends StatelessWidget {
   @override
-  TodolistScreenState createState() => TodolistScreenState();
-}
+  Widget build(BuildContext context) {
+    TodolistBloc bloc= TodolistProvider.of(context);
+    bloc.getFeed();
 
-class TodolistScreenState extends State<TodolistScreen> with SingleTickerProviderStateMixin {
-  final List<TodoListType> todolist = [
-    TodoListType(1, "Beli persiapan lomba",
-        "Beli tali, karton, triplek, bambu, buku gambar, dan pulpen"),
-    TodoListType(2, "Pergi ke rumah tante",
-        "Jangan lupa bawa kue pesanan tante di pasar"),
-    TodoListType(3, "Daftar pengabdian",
-        "Syarat fotokopi ktp 1 lembar, transkrip nilai 2 lembar legalisir, dan surat rekomendasi kampus "),
-    TodoListType(4, "Bla bla bla",
-        "Bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla"),
-  ];
+    return Scaffold(
+      body: Container(
+        child: buildBody(context, bloc.feeds),
+        color: Colors.grey[800],
+      ),
+    );
+  } 
 
-  var exp = ExpansionTile(
-    title: Text('Details'),
-    children: <Widget>[
-      new Text("Created at " +
-          DateFormat('EEE d MMM kk:mm:ss').format(DateTime.now())),
-      new Text("Deadline at " +
-          DateFormat('EEE d MMM kk:mm:ss')
-              .format(DateTime.now().add(Duration(days: 7)))),
-    ],
-  );
-
-  Widget expansionTile(List<TodoListType> data, int index){
+  Widget expansionTile(TodolistModel data, int index){
     return ExpansionTile(
       title: Padding(
         padding: EdgeInsets.only(top: 10, left: 10, bottom: 10),
         child: Column(
           children: <Widget>[
             Text(
-              data[index].judul,
+              data.title,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black,
               ),
             ),
             Text(
-              data[index].deskripsi,
+              data.description,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 color: Colors.black54,
@@ -62,14 +46,13 @@ class TodolistScreenState extends State<TodolistScreen> with SingleTickerProvide
       ),
       children: <Widget>[
         Text(
-          "Created at " +
-              DateFormat('EEE d MMM kk:mm:ss').format(DateTime.now()),
+          "Created at " + DateFormat('EEE, d MMM yy (kk:mm a)').format(DateTime.parse(data.createdAt)),
           style: TextStyle(fontSize: 12),
         ),
         Text(
           "Deadline at " +
-              DateFormat('EEE d MMM kk:mm:ss')
-                  .format(DateTime.now().add(Duration(days: 7))),
+              DateFormat('EEE, d MMM yy (kk:mm a)')
+                  .format(DateTime.parse(data.deadlineAt)),
           style: TextStyle(fontSize: 12),
         ),
         Container(
@@ -80,32 +63,37 @@ class TodolistScreenState extends State<TodolistScreen> with SingleTickerProvide
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: buildBody(context),
-        color: Colors.grey[800],
+  Widget buildBody(BuildContext context, Stream<TodolistResponseModel> stream){
+    return Container(
+        child: StreamBuilder(
+        stream: stream,
+        builder: (context, AsyncSnapshot<TodolistResponseModel> snapshot){
+          if(!snapshot.hasData || snapshot.data == null){
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView.builder(
+            itemCount: snapshot.data.data.length,
+            itemBuilder: (context, index) {
+              return Card(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: expansionTile(snapshot.data.data[index], index),
+                ),
+                margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+                shape:
+                    RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+              );
+            },
+          );
+        },
       ),
     );
-  } // Widget build
-
-  Widget buildBody(BuildContext context){
-    return ListView.builder(
-      itemCount: todolist.length,
-      itemBuilder: (context, index) {
-        return Card(
-          child: Container(
-            alignment: Alignment.center,
-            child: expansionTile(todolist, index),
-          ),
-          margin: EdgeInsets.only(left: 10, right: 10, top: 10),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        );
-      },
-    );
   }
+
+    
+  
 }
 
 // https://pub.dev/documentation/animated_floatactionbuttons/latest/

@@ -4,12 +4,7 @@ import 'todolist_screen.dart';
 import 'add_todolist_screen.dart';
 import 'setting_screen.dart'; 
 
-class Home extends StatefulWidget {
-  @override
-  HomeState createState() => HomeState();
-}
-
-class HomeState extends State<Home> with SingleTickerProviderStateMixin {
+class HomeScreen extends StatelessWidget {
   var borderFABred = RoundedRectangleBorder(
       side: BorderSide(
           color: Colors.redAccent[400], width: 1, style: BorderStyle.solid),
@@ -30,7 +25,7 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
           color: Colors.orangeAccent[400], width: 1, style: BorderStyle.solid),
       borderRadius: BorderRadius.circular(30.0));
 
-  Widget tambah() {
+  Widget tambah(BuildContext context) {
     return Container(
       child: FloatingActionButton(
         onPressed: (){
@@ -51,7 +46,7 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget selesai() {
+  Widget selesai(BuildContext context) {
     return Container(
       child: FloatingActionButton(
         onPressed: null,
@@ -69,7 +64,7 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget hapus() {
+  Widget hapus(BuildContext context) {
     return Container(
       child: FloatingActionButton(
         onPressed: null,
@@ -87,7 +82,7 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
     );
   }
 
-  Widget setting() {
+  Widget setting(BuildContext context) {
     return Container(
       child: FloatingActionButton(
         onPressed: (){
@@ -129,11 +124,11 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
       ),
       backgroundColor: Colors.grey[850],
       body: Container(
-        child: TodolistScreen(),
         color: Colors.grey[800],
+        child:  TodolistScreen(),
       ),
       floatingActionButton: AnimatedFloatingActionButton(
-        fabButtons: <Widget>[setting(), hapus(), selesai(), tambah()],
+        fabButtons: <Widget>[setting(context), hapus(context), selesai(context), tambah(context)],
         colorStartAnimation: Colors.blue,
         colorEndAnimation: Colors.red,
         animatedIconData: AnimatedIcons.menu_close,
