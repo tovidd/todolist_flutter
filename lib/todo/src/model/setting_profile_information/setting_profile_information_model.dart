@@ -1,29 +1,4 @@
-
-class SettingProfileInformation {
-  String status;
-  String message;
-  User user;
-
-  SettingProfileInformation({this.status, this.message, this.user});
-
-  SettingProfileInformation.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    message = json['message'];
-    user = json['data'] != null ? new User.fromJson(json['data']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    data['message'] = this.message;
-    if (this.user != null) {
-      data['data'] = this.user.toJson();
-    }
-    return data;
-  }
-}
-
-class User {
+class SettingProfileInformationModel {
   String fullName;
   int age;
   String email;
@@ -34,7 +9,7 @@ class User {
   String avatar;
   String profileCover;
 
-  User(
+  SettingProfileInformationModel(
       {this.fullName,
       this.age,
       this.email,
@@ -45,7 +20,7 @@ class User {
       this.avatar,
       this.profileCover});
 
-  User.fromJson(Map<String, dynamic> json) {
+  SettingProfileInformationModel.fromJson(Map<String, dynamic> json) {
     fullName = json['full_name'];
     age = json['age'];
     email = json['email'];

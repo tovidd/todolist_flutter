@@ -14,7 +14,6 @@ class TodolistBloc {
   getFeed() async {
     addFeeds(null);
     final response = await _repository.getTodolist();
-    print(response.toJson());
     addFeeds(response);
   }
 

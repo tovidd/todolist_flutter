@@ -34,6 +34,7 @@ class TodolistScreen extends StatelessWidget {
                 color: Colors.black,
               ),
             ),
+            SizedBox(height: 10,),
             Text(
               data.description,
               textAlign: TextAlign.justify,
@@ -81,11 +82,12 @@ class TodolistScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: expansionTile(snapshot.data.data[index], index),
                 ),
-                margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+                margin: EdgeInsets.only(left: 10, right: 10, top: 15),
                 shape:
                     RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
               );
             },
+            padding: EdgeInsets.only(bottom: 50),
           );
         },
       ),

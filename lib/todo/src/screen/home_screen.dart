@@ -2,9 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 import 'todolist_screen.dart';
 import 'add_todolist_screen.dart';
-import 'setting_screen.dart'; 
+import 'setting/setting_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+    @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'TodoList',
+          style: TextStyle(color: Colors.yellow),
+        ),
+        actions: popupMenu(context),
+        backgroundColor: Colors.black54,
+      ),
+      backgroundColor: Colors.grey[850],
+      body: Container(
+        color: Colors.grey[800],
+        child: TodolistScreen(),
+      ),
+      floatingActionButton: AnimatedFloatingActionButton(
+        fabButtons: <Widget>[
+          setting(context),
+          hapus(context),
+          selesai(context),
+          tambah(context)
+        ],
+        colorStartAnimation: Colors.blue,
+        colorEndAnimation: Colors.red,
+        animatedIconData: AnimatedIcons.menu_close,
+      ),
+    );
+  } // Widget build
+
   var borderFABred = RoundedRectangleBorder(
       side: BorderSide(
           color: Colors.redAccent[400], width: 1, style: BorderStyle.solid),
@@ -28,7 +58,7 @@ class HomeScreen extends StatelessWidget {
   Widget tambah(BuildContext context) {
     return Container(
       child: FloatingActionButton(
-        onPressed: (){
+        onPressed: () {
           AddTodolistScreenState().showModalSheet(context);
         },
         tooltip: 'Add an Item',
@@ -85,8 +115,8 @@ class HomeScreen extends StatelessWidget {
   Widget setting(BuildContext context) {
     return Container(
       child: FloatingActionButton(
-        onPressed: (){
-          SettingScreenState().showModalSheet(context);
+        onPressed: () {
+          Navigator.pushNamed(context, '/setting');
         },
         tooltip: 'Setting',
         heroTag: 'Setting',
@@ -102,42 +132,57 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'TodoList',
-          style: TextStyle(color: Colors.yellow),
-        ),
-        actions: <Widget>[
-          Container(
-            child: IconButton(
-              icon: Icon(Icons.add), 
-              color: Colors.yellow,
-              iconSize: 20,
-              onPressed: (){AddTodolistScreenState().showModalSheet(context);},
-            ),
-          )
-        ],
-        backgroundColor: Colors.black54,
+  List<Widget> popupMenu(BuildContext context) {
+    return <Widget>[
+      PopupMenuButton<String>(
+        onSelected: (String choice) async{
+          choiceAction(context, choice);
+        },
+        itemBuilder: (context){
+          return PopupMenuChoice.choices.map((PopupMenuChoice choice){
+            return PopupMenuItem<String>(
+              value: choice.title,
+              child: Row(
+                children: <Widget>[
+                  Icon(choice.icon, color: Colors.black,), 
+                  SizedBox(width: 10,), 
+                  Text(choice.title)
+                ],
+              ),
+            );
+          }).toList();
+        },
       ),
-      backgroundColor: Colors.grey[850],
-      body: Container(
-        color: Colors.grey[800],
-        child:  TodolistScreen(),
-      ),
-      floatingActionButton: AnimatedFloatingActionButton(
-        fabButtons: <Widget>[setting(context), hapus(context), selesai(context), tambah(context)],
-        colorStartAnimation: Colors.blue,
-        colorEndAnimation: Colors.red,
-        animatedIconData: AnimatedIcons.menu_close,
-      ),
-    );
-  } // Widget build
+    ];
+  }
 
-  
+  void choiceAction(BuildContext context, String choice){
+    if(choice == PopupMenuChoice.Add){
+      AddTodolistScreenState().showModalSheet(context);
+      print('Add');
+    }
+    else if(choice == PopupMenuChoice.Delete){
+      print('Delete');
+    }
+  }
+
 }
+
+class PopupMenuChoice{
+  final String title;
+  final IconData icon;
+
+  static const Add= 'Add';
+  static const Delete= 'Delete';
+  const PopupMenuChoice(this.title, this.icon);
+
+  static const List<PopupMenuChoice> choices= [
+    PopupMenuChoice(Add, Icons.add), 
+    PopupMenuChoice(Delete, Icons.delete)
+  ];
+}
+
+
 
 // https://pub.dev/documentation/animated_floatactionbuttons/latest/
 // https://medium.com/flutterpub/flutter-5-bottom-sheet-2d56bf9f3bc
