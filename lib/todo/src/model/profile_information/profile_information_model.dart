@@ -1,4 +1,4 @@
-class SettingProfileInformationModel {
+class ProfileInformationModel {
   String fullName;
   int age;
   String email;
@@ -9,7 +9,7 @@ class SettingProfileInformationModel {
   String avatar;
   String profileCover;
 
-  SettingProfileInformationModel(
+  ProfileInformationModel(
       {this.fullName,
       this.age,
       this.email,
@@ -20,7 +20,7 @@ class SettingProfileInformationModel {
       this.avatar,
       this.profileCover});
 
-  SettingProfileInformationModel.fromJson(Map<String, dynamic> json) {
+  ProfileInformationModel.fromJson(Map<String, dynamic> json) {
     fullName = json['full_name'];
     age = json['age'];
     email = json['email'];

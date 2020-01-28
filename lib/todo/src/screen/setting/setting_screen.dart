@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'profile_information_screen.dart';
-import 'change_password_screen.dart';
-import '../expand_list.dart';
-
 class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -59,15 +55,18 @@ class SettingScreen extends StatelessWidget {
       children: <Widget>[
           setting_title(context, 'Account Settings', Colors.grey),
           GestureDetector(
-            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => SettingProfileInformationScreen()),);},
+            onTap: (){Navigator.pushNamed(context, '/setting_profile_information');},
             child: setting_content(context, 'Profile Information', 'Name, Email, Security', 'assets/ic_user.png', Icon(null, size: 25, color: Colors.blue,), Colors.blue[50]),
           ),
           GestureDetector(
-            onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()),);},
+            onTap: (){Navigator.pushNamed(context, '/setting_change_password');},
             child: setting_content(context, 'Change Password', 'Change Your Current Password', null, Icon(Icons.lock, size: 25, color: Colors.orange,), Colors.orange[50]), 
-          ),
+          ), 
           setting_title(context, 'Notifications Setting', Colors.grey),
-          setting_content(context, 'Push Notifications', 'New Contract Sign Or Send', null, Icon( Icons.notifications, size: 25, color: Colors.tealAccent[400],), Colors.lightGreen[50]),
+          GestureDetector(
+            onTap: (){Navigator.pushNamed(context, '/setting_push_notifications');},
+            child: setting_content(context, 'Push Notifications', 'New Contract Sign Or Send', null, Icon( Icons.notifications, size: 25, color: Colors.tealAccent[400],), Colors.lightGreen[50]),
+          ),
           setting_title(context, 'General', Colors.grey),
           setting_content(context, 'Rate Our App', 'Rate & Review Us', null, Icon(Icons.favorite, size: 25, color: Colors.red,), Colors.red[50]),
           setting_content(context, 'Send Feedback', 'Share Your Thought', 'assets/ic_mail.png', Icon(null, size: 25), Colors.green[50]),

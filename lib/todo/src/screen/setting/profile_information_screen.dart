@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import '../../model/setting_profile_information/setting_profile_information_model.dart';
-import '../../model/setting_profile_information/setting_profile_information_response_model.dart';
-import '../../bloc/setting_profile_information/setting_profile_information_bloc.dart';
-import '../../bloc/setting_profile_information/setting_profile_information_provider.dart';
+import '../../model/profile_information/profile_information_model.dart';
+import '../../model/profile_information/profile_information_response_model.dart';
+import '../../bloc/setting/profile_information/profile_information_bloc.dart';
+import '../../bloc/setting/profile_information/profile_information_provider.dart';
 
-class SettingProfileInformationScreen extends StatelessWidget {
+class ProfileInformationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SettingProfileInformationBloc bloc =
-        SettingProfileInformationProvider.of(context);
+    ProfileInformationBloc bloc =
+        ProfileInformationProvider.of(context);
     bloc.getFeed();
 
     return Scaffold(
@@ -34,12 +34,12 @@ class SettingProfileInformationScreen extends StatelessWidget {
   }
 
   Widget buildBody(BuildContext context,
-      Stream<SettingProfileInformationResponseModel> stream) {
+      Stream<ProfileInformationResponseModel> stream) {
     return Container(
       child: StreamBuilder(
         stream: stream,
         builder: (context,
-            AsyncSnapshot<SettingProfileInformationResponseModel> snapshot) {
+            AsyncSnapshot<ProfileInformationResponseModel> snapshot) {
           if (!snapshot.hasData || snapshot.data == null) {
             return spinkit();
           }
@@ -63,7 +63,7 @@ class SettingProfileInformationScreen extends StatelessWidget {
   }
 
   Widget failLoadData(
-      SettingProfileInformationResponseModel data, BuildContext context) {
+      ProfileInformationResponseModel data, BuildContext context) {
     return Scaffold(
       body: Container(
         color: Colors.grey[800],
@@ -90,7 +90,7 @@ class SettingProfileInformationScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              SettingProfileInformationScreen()),
+                              ProfileInformationScreen()),
                     );
                   },
                 )
@@ -102,7 +102,7 @@ class SettingProfileInformationScreen extends StatelessWidget {
     );
   }
 
-  List<Widget> avatar(SettingProfileInformationModel data, String image_url,
+  List<Widget> avatar(ProfileInformationModel data, String image_url,
       String message, Color text_color) {
     return <Widget>[
       CircleAvatar(
@@ -125,7 +125,7 @@ class SettingProfileInformationScreen extends StatelessWidget {
     ];
   }
 
-  Widget stack(BuildContext context, SettingProfileInformationModel data) {
+  Widget stack(BuildContext context, ProfileInformationModel data) {
     return Stack(
       children: <Widget>[
         Column(

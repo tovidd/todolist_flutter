@@ -1,8 +1,7 @@
-import '../model/change_password/change_password_model.dart';
-
 import '../model/todolist/todolist_response_model.dart';
 import '../resource/api_provider.dart';
-import '../model/setting_profile_information/setting_profile_information_response_model.dart';
+import '../model/profile_information/profile_information_response_model.dart';
+import '../model/change_password/password_list_response_model.dart';
 
 class Repository{
   ApiProvider apiProvider = ApiProvider();
@@ -11,11 +10,11 @@ class Repository{
     return await apiProvider.getTodolist();
   }
 
-  Future<SettingProfileInformationResponseModel> getSettingProfileInformation() async{
+  Future<ProfileInformationResponseModel> getSettingProfileInformation() async{
     return await apiProvider.getSettingProfileInformation();
   }
 
-  Future<ProductResponseModel> getProductTerlaris() async{
-    return await apiProvider.getProductTerlaris();
+  Future<PasswordListResponseModel> getPasswordList() async{
+    return await apiProvider.getPasswordList();
   }
 }

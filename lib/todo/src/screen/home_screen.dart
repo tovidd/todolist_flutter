@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 import 'todolist_screen.dart';
 import 'add_todolist_screen.dart';
-import 'setting/setting_screen.dart';
 
 class HomeScreen extends StatelessWidget {
     @override
@@ -23,10 +22,10 @@ class HomeScreen extends StatelessWidget {
       ),
       floatingActionButton: AnimatedFloatingActionButton(
         fabButtons: <Widget>[
-          setting(context),
-          hapus(context),
-          selesai(context),
-          tambah(context)
+          delete(context),
+          overdue(context),
+          done(context),
+          add(context)
         ],
         colorStartAnimation: Colors.blue,
         colorEndAnimation: Colors.red,
@@ -55,7 +54,7 @@ class HomeScreen extends StatelessWidget {
           color: Colors.orangeAccent[400], width: 1, style: BorderStyle.solid),
       borderRadius: BorderRadius.circular(30.0));
 
-  Widget tambah(BuildContext context) {
+  Widget add(BuildContext context) {
     return Container(
       child: FloatingActionButton(
         onPressed: () {
@@ -76,12 +75,14 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget selesai(BuildContext context) {
+  Widget done(BuildContext context) {
     return Container(
       child: FloatingActionButton(
-        onPressed: null,
-        tooltip: 'Finised Items',
-        heroTag: 'Finised Items',
+        onPressed: (){
+          Navigator.pushNamed(context, '/doneTodolist');
+        },
+        tooltip: 'Done Item(s)',
+        heroTag: 'Done Item(s)',
         child: Icon(
           Icons.done_all,
           color: Colors.greenAccent[400],
@@ -94,12 +95,14 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget hapus(BuildContext context) {
+  Widget delete(BuildContext context) {
     return Container(
       child: FloatingActionButton(
-        onPressed: null,
-        tooltip: 'Deleted Items',
-        heroTag: 'Deleted Items',
+        onPressed: (){
+          Navigator.pushNamed(context, '/deleteTodolist');
+        },
+        tooltip: 'Deleted Item(s)',
+        heroTag: 'Deleted Item(s)',
         child: Icon(
           Icons.delete,
           color: Colors.redAccent[400],
@@ -112,16 +115,16 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget setting(BuildContext context) {
+  Widget overdue(BuildContext context) {
     return Container(
       child: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/setting');
+          Navigator.pushNamed(context, '/overdueTodolist');
         },
-        tooltip: 'Setting',
-        heroTag: 'Setting',
+        tooltip: 'Overdue Item(s)',
+        heroTag: 'Overdue Item(s)',
         child: Icon(
-          Icons.settings,
+          Icons.access_time,
           color: Colors.orangeAccent[400],
         ),
         mini: true,
@@ -157,12 +160,12 @@ class HomeScreen extends StatelessWidget {
   }
 
   void choiceAction(BuildContext context, String choice){
-    if(choice == PopupMenuChoice.Add){
-      AddTodolistScreenState().showModalSheet(context);
-      print('Add');
+    if(choice == PopupMenuChoice.Setting){
+      Navigator.pushNamed(context, '/setting');
+      print('Setting');
     }
-    else if(choice == PopupMenuChoice.Delete){
-      print('Delete');
+    else if(choice == PopupMenuChoice.Share){
+      print('Share');
     }
   }
 
@@ -172,13 +175,13 @@ class PopupMenuChoice{
   final String title;
   final IconData icon;
 
-  static const Add= 'Add';
-  static const Delete= 'Delete';
+  static const Setting= 'Setting';
+  static const Share= 'Share';
   const PopupMenuChoice(this.title, this.icon);
 
   static const List<PopupMenuChoice> choices= [
-    PopupMenuChoice(Add, Icons.add), 
-    PopupMenuChoice(Delete, Icons.delete)
+    PopupMenuChoice(Setting, Icons.settings), 
+    PopupMenuChoice(Share, Icons.share)
   ];
 }
 

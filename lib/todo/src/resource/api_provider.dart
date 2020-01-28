@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' show Client;
-import '../model/change_password/change_password_model.dart';
 
 import '../model/todolist/todolist_response_model.dart';
-import '../model/setting_profile_information/setting_profile_information_response_model.dart';
+import '../model/profile_information/profile_information_response_model.dart';
+import '../model/change_password/password_list_response_model.dart';
 
 class ApiProvider {
   Client client = Client();
@@ -12,6 +12,7 @@ class ApiProvider {
   final _suffix_setting_profile_information= '5e212fa32f0000670077d4ae?mocky-delay=2000ms'; //success 
   // final _suffix_setting_profile_information= '5e28130b3200007404d83ea1?mocky-delay=2000ms'; //error
   final _suffix_product_terlaris= '5e2c4de53100007500267ebc?mocky-delay=2000ms';
+  final _suffix_password= '5e2e8bcc3100000e00710052?mocky-delay=2000ms';
 
   var response;
   var parsedJson;
@@ -22,16 +23,16 @@ class ApiProvider {
     return TodolistResponseModel.fromJson(parsedJson);
   }
 
-  Future<SettingProfileInformationResponseModel> getSettingProfileInformation() async {
+  Future<ProfileInformationResponseModel> getSettingProfileInformation() async {
     response = await client.get(_base_url+_suffix_setting_profile_information);
     parsedJson = json.decode(response.body);
-    return SettingProfileInformationResponseModel.fromJson(parsedJson);
+    return ProfileInformationResponseModel.fromJson(parsedJson);
   }
 
-  Future<ProductResponseModel> getProductTerlaris() async {
-    response = await client.get(_base_url+_suffix_product_terlaris);
+  Future<PasswordListResponseModel> getPasswordList() async {
+    response = await client.get(_base_url+_suffix_password);
     parsedJson = json.decode(response.body);
-    return ProductResponseModel.fromJson(parsedJson);
+    return PasswordListResponseModel.fromJson(parsedJson);
   }
 
 }
