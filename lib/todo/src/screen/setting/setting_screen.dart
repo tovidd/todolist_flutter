@@ -68,7 +68,10 @@ class SettingScreen extends StatelessWidget {
             child: setting_content(context, 'Push Notifications', 'New Contract Sign Or Send', null, Icon( Icons.notifications, size: 25, color: Colors.tealAccent[400],), Colors.lightGreen[50]),
           ),
           setting_title(context, 'General', Colors.grey),
-          setting_content(context, 'Rate Our App', 'Rate & Review Us', null, Icon(Icons.favorite, size: 25, color: Colors.red,), Colors.red[50]),
+          GestureDetector(
+            onTap: (){Navigator.pushNamed(context, '/setting_rate_our_app');},
+            child: setting_content(context, 'Rate Our App', 'Rate & Review Us', null, Icon(Icons.favorite, size: 25, color: Colors.red,), Colors.red[50]),
+          ),
           setting_content(context, 'Send Feedback', 'Share Your Thought', 'assets/ic_mail.png', Icon(null, size: 25), Colors.green[50]),
           setting_content(context, 'Privacy Policy', 'Read Privacy Policy', null, Icon(Icons.visibility_off, size: 25, color: Colors.black,), Colors.black12),
           setting_title(context, 'Connected App(s)', Colors.grey),

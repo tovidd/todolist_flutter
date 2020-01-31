@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
 
 import 'bloc/setting/profile_information/profile_information_provider.dart';
-import 'screen/home_screen.dart';
 import 'bloc/todolist/todolist_provider.dart';
-import 'screen/setting/setting_screen.dart';
 import 'bloc/setting/change_password/change_password_provider.dart';
+import 'bloc/setting/push_notifications/push_notifications_provider.dart';
+
+import 'screen/home_screen.dart';
+import 'screen/setting/setting_screen.dart';
 import 'screen/done_todolist_screen.dart';
 import 'screen/delete_todolist_screen.dart';
 import 'screen/overdue_todolist_screen.dart';
-import 'screen/setting/profile_information_screen.dart';
-import 'screen/setting/change_password_screen.dart';
-import 'screen/setting/push_notifications_screen.dart';
+import 'screen/setting/profile_information/profile_information_screen.dart';
+import 'screen/setting/change_password/change_password_screen.dart';
+import 'screen/setting/push_notifications/push_notifications_screen.dart';
+import 'screen/setting/rate_our_app/rate_our_app_screen.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangePasswordProvider(
-      child: ProfileInformationProvider(
-            child: TodolistProvider(
-          child: MaterialApp(
-            title: 'Dashboard',
-            onGenerateRoute: routes,
-            debugShowCheckedModeBanner: false,
+    return PushNotificationsProvider(
+          child: ChangePasswordProvider(
+        child: ProfileInformationProvider(
+              child: TodolistProvider(
+            child: MaterialApp(
+              title: 'Dashboard',
+              onGenerateRoute: routes,
+              debugShowCheckedModeBanner: false,
+            ),
           ),
         ),
       ),
@@ -53,7 +58,10 @@ class App extends StatelessWidget {
         return MaterialPageRoute(builder: (_) => ChangePasswordScreen());
         break;
       case '/setting_push_notifications': 
-        return MaterialPageRoute(builder: (_) => PushNotificationsScreen(PushNotificationsScreen.createSampleData(), animate: false,));
+        return MaterialPageRoute(builder: (_) => PushNotificationsScreen(animate: false));
+        break;
+      case '/setting_rate_our_app': 
+        return MaterialPageRoute(builder: (_) => RateOurAppScreen());
         break;
       default: MaterialPageRoute(builder: (_) => pageNotFound());
     }

@@ -34,6 +34,18 @@ class ChangePasswordBloc {
     }
   }
 
+  updatePasswordIsExpand(int id_password_type){
+    PasswordListResponseModel data= _passwordList.value;
+    for (var i = 0; i < data.data.length; i++){
+      if(data.data[i].id == id_password_type){
+        data.data[i].isExpand= !data.data[i].isExpand;
+        print(id_password_type);
+        print(data.data[i].isExpand);
+        addPasswordList(data);
+      }
+    }
+  }
+
 
 
 
