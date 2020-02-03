@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../bloc/setting/push_notifications/push_notifications_provider.dart';
 import '../../../model/push_notifications/push_notifications_response_model.dart';
-import '../../../model/push_notifications/push_notifications_model.dart';
+import '../../../resource/loading.dart';
 
 class PushNotificationsScreen extends StatelessWidget {
+  static const routeName = '/setting_push_notifications';
+
   List<charts.Series<LinearSales, int>> seriesList;
   var series;
   final bool animate;
@@ -74,7 +75,7 @@ class PushNotificationsScreen extends StatelessWidget {
       builder:
           (context, AsyncSnapshot<PushNotificationsResponseModel> snapshot) {
         if (!snapshot.hasData || snapshot.data == null) {
-          return spinkit();
+          return Loading().gary(context);
         }
 
         seriesList = createSampleData(snapshot.data);
@@ -104,17 +105,6 @@ class PushNotificationsScreen extends StatelessWidget {
     );
   }
 
-  Widget spinkit() {
-    return Center(
-      child: Container(
-        color: Colors.white,
-        child: SpinKitThreeBounce(
-          color: Colors.pink,
-          size: 50,
-        ),
-      ),
-    );
-  }
 
   List<charts.Series<LinearSales, int>> createSampleData( PushNotificationsResponseModel data) {
     List<LinearSales> temp = [];
@@ -167,15 +157,18 @@ class PushNotificationsScreen extends StatelessWidget {
         )
       );
       
-      return Container(
-        height: 300,
-        color: color[index],
-        child: charts.PieChart(
-          temp2,
-          animate: animate,
-          defaultRenderer: new charts.ArcRendererConfig(
-            arcWidth: 60,
-            arcRendererDecorators: [new charts.ArcLabelDecorator()],),),
+      return Card(
+        child: Container(
+          width: 50,
+          height: 100,
+          color: color[index],
+          child: charts.PieChart(
+            temp2,
+            animate: animate,
+            defaultRenderer: new charts.ArcRendererConfig(
+              arcWidth: 60,
+              arcRendererDecorators: [new charts.ArcLabelDecorator()],),),
+        ),
       );
   }
 

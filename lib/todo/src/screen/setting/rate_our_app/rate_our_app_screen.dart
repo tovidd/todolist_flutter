@@ -1,94 +1,115 @@
 import 'package:flutter/material.dart';
-import 'package:liquid_swipe/liquid_swipe.dart';
-import 'package:liquid_swipe/Constants/Helpers.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import '../../../bloc/setting/rate_our_app/rate_our_app_bloc.dart';
+import '../../../bloc/setting/rate_our_app/rate_our_app_provider.dart';
 
 class RateOurAppScreen extends StatelessWidget {
-  int page = 0;
-  UpdateType updateType;
-  static final style = TextStyle(
-    fontSize: 30,
-    // fontFamily: "Billy",
-    fontWeight: FontWeight.w600,
-  );
-
-  var _ratingController = TextEditingController();
-  double _rating;
-  double _userRating = 3.0;
-  int _ratingBarMode = 1;
-  bool _isRTLMode = false;
-  bool _isVertical = false;
-  IconData _selectedIcon;
+  final IconData filledStar;
+  final IconData unfilledStar;
+  static const routeName = '/setting_rate_our_app_screen';
+  RateOurAppScreen({
+    Key key,
+    this.filledStar,
+    this.unfilledStar,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    RateOurAppBloc bloc = RateOurAppProvider.of(context);
+    bloc.getRateOurApp();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Rate Our App'),
       ),
-      body: buildBody(context),
+      body: ListView(
+        children: <Widget>[
+          StreamBuilder(
+            stream: bloc.rateOurApp,
+            builder: (context, AsyncSnapshot<int> snapshot) {
+              return buildBody(context, bloc, snapshot);
+            },
+          ),
+        ],
+      ),
     );
   }
 
-  Widget buildBody(BuildContext context){
-    final pages= [
-      Container(
-        width: MediaQuery.of(context).size.width,
-        color: Colors.yellow, 
-        child: Center(
-          child: Text('Rate Our App 1', style: TextStyle(fontSize: 30),),
-        )
-      ), 
-      Container(
-        width: MediaQuery.of(context).size.width,
-        color: Colors.greenAccent, 
-        child: Center(
-          child: Text('Rate Our App 2', style: TextStyle(fontSize: 30),),
-        )
-      ), 
-      Container(
-        width: MediaQuery.of(context).size.width,
-        color: Colors.blueAccent, 
-        child: Center(
-          child: Text('Rate Our App 3', style: TextStyle(fontSize: 30),),
-        )
-      ), 
-      Container(
-        child: RatingBar(
-          initialRating: 2,
-          minRating: 1,
-          direction: _isVertical ? Axis.vertical : Axis.horizontal,
-          allowHalfRating: true,
-          unratedColor: Colors.amber.withAlpha(50),
-          itemCount: 5,
-          itemSize: 50.0,
-          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-          itemBuilder: (context, _) => Icon(
-            _selectedIcon ?? Icons.star,
-            color: Colors.amber,
-          ),
-          onRatingUpdate: (rating) {
-            _rating = rating;
+  Widget buildBody(
+      BuildContext context, RateOurAppBloc bloc, AsyncSnapshot<int> snapshot) {
+    return Column(
+      children: <Widget>[
+        SizedBox(height: 20),
+        title(),
+        SizedBox(height: 20),
+        rating(bloc, snapshot),
+        SizedBox(height: 20),
+        textArea(),
+        SizedBox(height: 20),
+        button(),
+      ],
+    );
+  }
+
+  Widget title() {
+    return Container(
+      child: Text(
+        'Give your thought about Teman Bumil',
+        style: TextStyle(fontSize: 20),
+      ),
+    );
+  }
+
+  Widget rating(RateOurAppBloc bloc, AsyncSnapshot<int> snapshot) {
+    final size = 36.0;
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+          5,
+          (index) {
+            return IconButton(
+              onPressed: () {
+                bloc.addRateOurApp(index + 1);
+              },
+              iconSize: size,
+              icon: Icon(
+                index < snapshot.data
+                    ? filledStar ?? Icons.star
+                    : unfilledStar ?? Icons.star_border,
+                color: Colors.amber,
+              ),
+              padding: EdgeInsets.zero,
+              tooltip: "${index + 1} of 5",
+            );
           },
         ),
-      )
-    ];
-
-    return LiquidSwipe(
-      pages: pages,
-      fullTransitionValue: 200,
-      enableSlideIcon: false,
-      enableLoop: true,
-      positionSlideIcon: 0.5,
-      waveType: WaveType.liquidReveal,
+      ),
     );
   }
 
-  // pageChangeCallback(int page) {
-  //   print(page);
-  // }
+  Widget textArea() {
+    return Container(
+      margin: EdgeInsets.only(left: 10, right: 10),
+      child: TextField(
+        maxLines: 8,
+        keyboardType: TextInputType.multiline,
+        decoration: InputDecoration(
+          hintText: 'Enter your thought',
+          border: OutlineInputBorder(),
+          labelText: 'Comment',
+          alignLabelWithHint: true,
+        ),
+      ),
+    );
+  }
 
-  // updateTypeCallback(UpdateType updateType) {
-  //   print(updateType);
-  // }
+  Widget button(){
+    return Container(
+      child: RaisedButton(
+        onPressed: (){},
+        child: Text('Send'),
+        color: Color(0xFF3dfd00),
+      ),
+    );
+  }
 }

@@ -4,6 +4,8 @@ import 'todolist_screen.dart';
 import 'add_todolist_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+  static const routeName = '/';
+
     @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../../../model/profile_information/profile_information_model.dart';
 import '../../../model/profile_information/profile_information_response_model.dart';
 import '../../../bloc/setting/profile_information/profile_information_bloc.dart';
 import '../../../bloc/setting/profile_information/profile_information_provider.dart';
+import '../../../resource/loading.dart';
 
 class ProfileInformationScreen extends StatelessWidget {
+  static const routeName = '/setting_profile_information';
+
   @override
   Widget build(BuildContext context) {
     ProfileInformationBloc bloc =
@@ -41,23 +43,14 @@ class ProfileInformationScreen extends StatelessWidget {
         builder: (context,
             AsyncSnapshot<ProfileInformationResponseModel> snapshot) {
           if (!snapshot.hasData || snapshot.data == null) {
-            return spinkit();
+            // return spinkit();
+            return Loading().gary(context);
           }
           if (snapshot.data.status == 'error') {
             return failLoadData(snapshot.data, context);
           }
           return stack(context, snapshot.data.data);
         },
-      ),
-    );
-  }
-
-  Widget spinkit() {
-    return Container(
-      color: Colors.white,
-      child: SpinKitThreeBounce(
-        color: Colors.pink,
-        size: 50,
       ),
     );
   }

@@ -5,6 +5,7 @@ import '../bloc/todolist/todolist_provider.dart';
 import '../bloc/todolist/todolist_bloc.dart';
 import '../model/todolist/todolist_model.dart';
 import '../model/todolist/todolist_response_model.dart';
+import '../resource/loading.dart';
 
 
 class TodolistScreen extends StatelessWidget {
@@ -70,9 +71,7 @@ class TodolistScreen extends StatelessWidget {
         stream: stream,
         builder: (context, AsyncSnapshot<TodolistResponseModel> snapshot){
           if(!snapshot.hasData || snapshot.data == null){
-            return Center(
-              child: CircularProgressIndicator(),
-            );
+            return Loading().gary(context);
           }
           return ListView.builder(
             itemCount: snapshot.data.data.length,

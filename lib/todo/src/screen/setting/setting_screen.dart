@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/todo/src/screen/setting/send_feedback/send_feedback_screen.dart';
+import '../../screen/setting/rate_our_app/rate_our_app_screen.dart';
 
 class SettingScreen extends StatelessWidget {
+  static const routeName = '/setting';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,10 +73,13 @@ class SettingScreen extends StatelessWidget {
           ),
           setting_title(context, 'General', Colors.grey),
           GestureDetector(
-            onTap: (){Navigator.pushNamed(context, '/setting_rate_our_app');},
+            onTap: (){Navigator.pushNamed(context, RateOurAppScreen.routeName, arguments: RateOurAppScreen(filledStar: Icons.favorite, unfilledStar: Icons.favorite_border));},
             child: setting_content(context, 'Rate Our App', 'Rate & Review Us', null, Icon(Icons.favorite, size: 25, color: Colors.red,), Colors.red[50]),
           ),
-          setting_content(context, 'Send Feedback', 'Share Your Thought', 'assets/ic_mail.png', Icon(null, size: 25), Colors.green[50]),
+          GestureDetector(
+            onTap: (){Navigator.pushNamed(context, SendFeedbackScreen.routeName);},
+            child: setting_content(context, 'Send Feedback', 'Share Your Thought', 'assets/ic_mail.png', Icon(null, size: 25), Colors.green[50]),
+          ),
           setting_content(context, 'Privacy Policy', 'Read Privacy Policy', null, Icon(Icons.visibility_off, size: 25, color: Colors.black,), Colors.black12),
           setting_title(context, 'Connected App(s)', Colors.grey),
           setting_content(context, 'Connected With Facebook', 'Tap To Manage', 'assets/ic_facebook.png', Icon(null, size: 25,), Colors.lightBlue[50]),
