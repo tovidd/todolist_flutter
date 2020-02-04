@@ -13,15 +13,15 @@ import 'setting/setting_screen.dart';
 class HomeScreen extends StatelessWidget {
   static const routeName = '/';
 
-  List<TargetFocus> targets = List();
-  GlobalKey scaffoldAppBarKey = GlobalKey();
-  GlobalKey scaffoldBodyBarKey = GlobalKey();
-  GlobalKey fabKey = GlobalKey();
+  // List<TargetFocus> targets = List();
+  // GlobalKey scaffoldAppBarKey = GlobalKey();
+  // GlobalKey scaffoldBodyBarKey = GlobalKey();
+  // GlobalKey fabKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    initTargets();
-    WidgetsBinding.instance.addPostFrameCallback(afterLayout(context));
+    // initTargets();
+    // WidgetsBinding.instance.addPostFrameCallback(afterLayout(context));
 
     return Scaffold(
       appBar: AppBar(
@@ -33,28 +33,10 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.black54,
       ),
       backgroundColor: Colors.grey[850],
-      body: Stack(
-        children: <Widget>[
-          Container(
-            color: Colors.grey[800],
-            child: TodolistScreen(),
-          ),
-          Container(
-            key: scaffoldBodyBarKey,
-            height: 100,
-            width: 100,
-            margin: EdgeInsets.only(right: 16, left: 16, top: 50),
-            color: Colors.pink,
-          ),
-          Container(
-            key: fabKey,
-            height: 100,
-            width: 100,
-            margin: EdgeInsets.only(right: 16, bottom: 16),
-            color: Colors.green,
-          )
-        ],
-      ),
+      body: Container(
+          color: Colors.grey[800],
+          child: TodolistScreen(),
+        ),
       floatingActionButton: AnimatedFloatingActionButton(
         fabButtons: <Widget>[
           delete(context),
@@ -173,7 +155,6 @@ class HomeScreen extends StatelessWidget {
   List<Widget> popupMenu(BuildContext context) {
     return <Widget>[
       PopupMenuButton<String>(
-        key: scaffoldAppBarKey,
         onSelected: (String choice) async {
           choiceAction(context, choice);
         },
@@ -209,164 +190,72 @@ class HomeScreen extends StatelessWidget {
     }
   }
 
-  void initTargets() {
-    targets.add(
-      TargetFocus(
-        identify: "Target 1",
-        keyTarget: scaffoldAppBarKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.bottom,
-            child: Container(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Popup menu',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20.0),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text(
-                      'Custom app preferences and share your experience',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.RRect,
-      ),
-    );
-    targets.add(
-      TargetFocus(
-        identify: "Target 2",
-        keyTarget: scaffoldBodyBarKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.left,
-            child: Container(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Todolist content',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20.0),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text(
-                      'Manage your event and schedule',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-          ContentTarget(
-            align: AlignContent.top,
-            child: Container(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Multiples content",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20.0),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.RRect,
-      ),
-    );
-    targets.add(
-      TargetFocus(
-        identify: "Target 3",
-        keyTarget: fabKey,
-        contents: [
-          ContentTarget(
-            align: AlignContent.right,
-            child: Container(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Title lorem ipsum",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20.0),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text(
-                      'Target 3: Keybutton 5',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
-        shape: ShapeLightFocus.RRect,
-      ),
-    );
-  }
+  // void initTargets() {
+  //   targets.add(
+  //     TargetFocus(
+  //       identify: "Target 1",
+  //       keyTarget: scaffoldAppBarKey,
+  //       contents: [
+  //         ContentTarget(
+  //           align: AlignContent.bottom,
+  //           child: Container(
+  //             child: Column(
+  //               mainAxisSize: MainAxisSize.min,
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: <Widget>[
+  //                 Text(
+  //                   'Popup menu',
+  //                   style: TextStyle(
+  //                       fontWeight: FontWeight.bold,
+  //                       color: Colors.white,
+  //                       fontSize: 20.0),
+  //                 ),
+  //                 Padding(
+  //                   padding: const EdgeInsets.only(top: 10.0),
+  //                   child: Text(
+  //                     'Custom app preferences and share your experience',
+  //                     style: TextStyle(color: Colors.white),
+  //                   ),
+  //                 )
+  //               ],
+  //             ),
+  //           ),
+  //         )
+  //       ],
+  //       shape: ShapeLightFocus.RRect,
+  //     ),
+  //   );
+  
+  // }
 
-  void showTutorial(BuildContext context) {
-    TutorialCoachMark(
-      context,
-      targets: targets,
-      colorShadow: Colors.red,
-      textSkip: "SKIP",
-      paddingFocus: 10,
-      opacityShadow: 0.8,
-      finish: () {
-        print("finish");
-      },
-      clickTarget: (target) {
-        print(target);
-      },
-      clickSkip: () {
-        print("skip");
-      },
-    )..show();
-  }
+  // void showTutorial(BuildContext context) {
+  //   TutorialCoachMark(
+  //     context,
+  //     targets: targets,
+  //     colorShadow: Colors.red,
+  //     textSkip: "SKIP",
+  //     paddingFocus: 10,
+  //     opacityShadow: 0.8,
+  //     finish: () {
+  //       print("finish");
+  //     },
+  //     clickTarget: (target) {
+  //       print(target);
+  //     },
+  //     clickSkip: () {
+  //       print("skip");
+  //     },
+  //   )..show();
+  // }
 
-  afterLayout(BuildContext context) {
-    Future.delayed(
-      Duration(milliseconds: 100),
-      () {
-        showTutorial(context);
-      },
-    );
-  }
+  // afterLayout(BuildContext context) {
+  //   Future.delayed(
+  //     Duration(milliseconds: 100),
+  //     () {
+  //       showTutorial(context);
+  //     },
+  //   );
+  // }
 }
 
 class PopupMenuChoice {
