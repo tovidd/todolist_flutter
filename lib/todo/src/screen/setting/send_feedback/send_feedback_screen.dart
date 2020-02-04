@@ -27,7 +27,6 @@ class SendFeedbackScreen extends StatelessWidget {
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  // key: keyButton,
                   color: Colors.blue,
                   height: 100,
                   width: MediaQuery.of(context).size.width - 50,
@@ -111,29 +110,30 @@ class SendFeedbackScreen extends StatelessWidget {
         keyTarget: keyButton,
         contents: [
           ContentTarget(
-              align: AlignContent.bottom,
-              child: Container(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Titulo lorem ipsum",
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 20.0),
+            align: AlignContent.bottom,
+            child: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Titulo lorem ipsum",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20.0),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      'Target 1: Keybutton 1',
+                      style: TextStyle(color: Colors.white),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Text(
-                        'Target 1: Keybutton 1',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    )
-                  ],
-                ),
-              ),)
+                  )
+                ],
+              ),
+            ),
+          )
         ],
         shape: ShapeLightFocus.RRect,
       ),
@@ -358,7 +358,5 @@ class SendFeedbackScreen extends StatelessWidget {
     );
   }
 }
-
-
 
 // https://www.didierboelens.com/faq/week2/

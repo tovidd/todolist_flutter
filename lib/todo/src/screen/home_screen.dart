@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
+import 'package:todolist/todo/src/resource/stateless_wrapper.dart';
 import 'package:tutorial_coach_mark/animated_focus_light.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
@@ -13,16 +14,20 @@ import 'setting/setting_screen.dart';
 class HomeScreen extends StatelessWidget {
   static const routeName = '/';
 
-  // List<TargetFocus> targets = List();
-  // GlobalKey scaffoldAppBarKey = GlobalKey();
-  // GlobalKey scaffoldBodyBarKey = GlobalKey();
-  // GlobalKey fabKey = GlobalKey();
+  List<TargetFocus> targets = List();
+  GlobalKey scaffoldAppBarKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
-    // initTargets();
-    // WidgetsBinding.instance.addPostFrameCallback(afterLayout(context));
+    initTargets();
 
+    return StatefulWrapper(
+      onInit: afterLayout(context),
+      child: scaffold(context),
+    );
+  }
+
+  scaffold(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -34,9 +39,9 @@ class HomeScreen extends StatelessWidget {
       ),
       backgroundColor: Colors.grey[850],
       body: Container(
-          color: Colors.grey[800],
-          child: TodolistScreen(),
-        ),
+        color: Colors.grey[800],
+        child: TodolistScreen(),
+      ),
       floatingActionButton: AnimatedFloatingActionButton(
         fabButtons: <Widget>[
           delete(context),
@@ -155,6 +160,7 @@ class HomeScreen extends StatelessWidget {
   List<Widget> popupMenu(BuildContext context) {
     return <Widget>[
       PopupMenuButton<String>(
+        key: scaffoldAppBarKey,
         onSelected: (String choice) async {
           choiceAction(context, choice);
         },
@@ -187,75 +193,77 @@ class HomeScreen extends StatelessWidget {
       print('Setting');
     } else if (choice == PopupMenuChoice.Share) {
       print('Share');
+    } else if (choice == PopupMenuChoice.CoachMark) {
+      afterLayout(context);
+      print('CoachMark');
     }
   }
 
-  // void initTargets() {
-  //   targets.add(
-  //     TargetFocus(
-  //       identify: "Target 1",
-  //       keyTarget: scaffoldAppBarKey,
-  //       contents: [
-  //         ContentTarget(
-  //           align: AlignContent.bottom,
-  //           child: Container(
-  //             child: Column(
-  //               mainAxisSize: MainAxisSize.min,
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: <Widget>[
-  //                 Text(
-  //                   'Popup menu',
-  //                   style: TextStyle(
-  //                       fontWeight: FontWeight.bold,
-  //                       color: Colors.white,
-  //                       fontSize: 20.0),
-  //                 ),
-  //                 Padding(
-  //                   padding: const EdgeInsets.only(top: 10.0),
-  //                   child: Text(
-  //                     'Custom app preferences and share your experience',
-  //                     style: TextStyle(color: Colors.white),
-  //                   ),
-  //                 )
-  //               ],
-  //             ),
-  //           ),
-  //         )
-  //       ],
-  //       shape: ShapeLightFocus.RRect,
-  //     ),
-  //   );
-  
-  // }
+  void initTargets() {
+    targets.add(
+      TargetFocus(
+        identify: "Target 1",
+        keyTarget: scaffoldAppBarKey,
+        contents: [
+          ContentTarget(
+            align: AlignContent.bottom,
+            child: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Popup menu',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20.0),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      'Custom app preferences and share your experience',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+        shape: ShapeLightFocus.RRect,
+      ),
+    );
+  }
 
-  // void showTutorial(BuildContext context) {
-  //   TutorialCoachMark(
-  //     context,
-  //     targets: targets,
-  //     colorShadow: Colors.red,
-  //     textSkip: "SKIP",
-  //     paddingFocus: 10,
-  //     opacityShadow: 0.8,
-  //     finish: () {
-  //       print("finish");
-  //     },
-  //     clickTarget: (target) {
-  //       print(target);
-  //     },
-  //     clickSkip: () {
-  //       print("skip");
-  //     },
-  //   )..show();
-  // }
+  void showTutorial(BuildContext context) {
+    TutorialCoachMark(
+      context,
+      targets: targets,
+      colorShadow: Colors.red,
+      textSkip: "SKIP",
+      paddingFocus: 10,
+      opacityShadow: 0.8,
+      finish: () {
+        print("finish");
+      },
+      clickTarget: (target) {
+        print(target);
+      },
+      clickSkip: () {
+        print("skip");
+      },
+    )..show();
+  }
 
-  // afterLayout(BuildContext context) {
-  //   Future.delayed(
-  //     Duration(milliseconds: 100),
-  //     () {
-  //       showTutorial(context);
-  //     },
-  //   );
-  // }
+  afterLayout(BuildContext context) {
+    Future.delayed(
+      Duration(milliseconds: 100),
+      () {
+        showTutorial(context);
+      },
+    );
+  }
 }
 
 class PopupMenuChoice {
@@ -264,11 +272,14 @@ class PopupMenuChoice {
 
   static const Setting = 'Setting';
   static const Share = 'Share';
+  static const CoachMark = 'CoachMark';
+
   const PopupMenuChoice(this.title, this.icon);
 
   static const List<PopupMenuChoice> choices = [
     PopupMenuChoice(Setting, Icons.settings),
-    PopupMenuChoice(Share, Icons.share)
+    PopupMenuChoice(Share, Icons.share),
+    PopupMenuChoice(CoachMark, Icons.nature_people)
   ];
 }
 
