@@ -2,8 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/animated_focus_light.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
+class Send extends StatelessWidget {
+  static const routeName = '/setting_send_feedback';
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
 class SendFeedbackScreen extends StatefulWidget {
-  static const routeName= '/setting_send_feedback';
+  static const routeName = '/setting_send_feedback';
+
   @override
   _SendFeedbackScreenState createState() => _SendFeedbackScreenState();
 }
@@ -113,42 +123,45 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
   }
 
   void initTargets() {
-    targets.add(TargetFocus(
-      identify: "Target 1",
-      keyTarget: keyButton,
-      contents: [
-        ContentTarget(
-            align: AlignContent.bottom,
-            child: Container(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Titulo lorem ipsum",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20.0),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0),
-                    child: Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
-                      style: TextStyle(color: Colors.white),
+    targets.add(
+      TargetFocus(
+        identify: "Target 1",
+        keyTarget: keyButton,
+        contents: [
+          ContentTarget(
+              align: AlignContent.bottom,
+              child: Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Titulo lorem ipsum",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 20.0),
                     ),
-                  )
-                ],
-              ),
-            ))
-      ],
-      shape: ShapeLightFocus.RRect,
-    ));
-    targets.add(TargetFocus(
-      identify: "Target 2",
-      keyTarget: keyButton4,
-      contents: [
-        ContentTarget(
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Text(
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )
+                  ],
+                ),
+              ))
+        ],
+        shape: ShapeLightFocus.RRect,
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "Target 2",
+        keyTarget: keyButton4,
+        contents: [
+          ContentTarget(
             align: AlignContent.left,
             child: Container(
               child: Column(
@@ -171,8 +184,9 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
                   )
                 ],
               ),
-            )),
-        ContentTarget(
+            ),
+          ),
+          ContentTarget(
             align: AlignContent.top,
             child: Container(
               child: Column(
@@ -195,15 +209,18 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
                   )
                 ],
               ),
-            ))
-      ],
-      shape: ShapeLightFocus.RRect,
-    ));
-    targets.add(TargetFocus(
-      identify: "Target 3",
-      keyTarget: keyButton5,
-      contents: [
-        ContentTarget(
+            ),
+          )
+        ],
+        shape: ShapeLightFocus.RRect,
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "Target 3",
+        keyTarget: keyButton5,
+        contents: [
+          ContentTarget(
             align: AlignContent.right,
             child: Container(
               child: Column(
@@ -226,15 +243,18 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
                   )
                 ],
               ),
-            ))
-      ],
-      shape: ShapeLightFocus.RRect,
-    ));
-    targets.add(TargetFocus(
-      identify: "Target 4",
-      keyTarget: keyButton3,
-      contents: [
-        ContentTarget(
+            ),
+          )
+        ],
+        shape: ShapeLightFocus.RRect,
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "Target 4",
+        keyTarget: keyButton3,
+        contents: [
+          ContentTarget(
             align: AlignContent.top,
             child: Container(
               child: Column(
@@ -262,15 +282,18 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
                   ),
                 ],
               ),
-            ))
-      ],
-      shape: ShapeLightFocus.Circle,
-    ));
-    targets.add(TargetFocus(
-      identify: "Target 5",
-      keyTarget: keyButton2,
-      contents: [
-        ContentTarget(
+            ),
+          )
+        ],
+        shape: ShapeLightFocus.Circle,
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "Target 5",
+        keyTarget: keyButton2,
+        contents: [
+          ContentTarget(
             align: AlignContent.top,
             child: Container(
               child: Column(
@@ -292,8 +315,9 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
                   ),
                 ],
               ),
-            )),
-        ContentTarget(
+            ),
+          ),
+          ContentTarget(
             align: AlignContent.bottom,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -315,31 +339,42 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
                   ),
                 ),
               ],
-            ))
-      ],
-      shape: ShapeLightFocus.Circle,
-    ));
+            ),
+          )
+        ],
+        shape: ShapeLightFocus.Circle,
+      ),
+    );
   }
 
   void showTutorial() {
-    TutorialCoachMark(context,
-        targets: targets,
-        colorShadow: Colors.red,
-        textSkip: "SKIP",
-        paddingFocus: 10,
-        opacityShadow: 0.8, finish: () {
-      print("finish");
-    }, clickTarget: (target) {
-      print(target);
-    }, clickSkip: () {
-      print("skip");
-    })
-      ..show();
+    TutorialCoachMark(
+      context,
+      targets: targets,
+      colorShadow: Colors.red,
+      textSkip: "SKIP",
+      paddingFocus: 10,
+      opacityShadow: 0.8,
+      finish: () {
+        print("finish");
+      },
+      clickTarget: (target) {
+        print(target);
+      },
+      clickSkip: () {
+        print("skip");
+      },
+    )..show();
   }
 
   void _afterLayout(_) {
-    Future.delayed(Duration(milliseconds: 100), () {
-      showTutorial();
-    });
+    Future.delayed(
+      Duration(milliseconds: 100),
+      () {
+        showTutorial();
+      },
+    );
   }
 }
+
+// https://www.didierboelens.com/faq/week2/
