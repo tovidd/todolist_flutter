@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
+import 'package:tutorial_coach_mark/animated_focus_light.dart';
+import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
+
 import 'todolist_screen.dart';
 import 'add_todolist_screen.dart';
+import 'delete_todolist_screen.dart';
+import 'done_todolist_screen.dart';
+import 'overdue_todolist_screen.dart';
+import 'setting/setting_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/';
 
-    @override
+  List<TargetFocus> targets = List();
+  GlobalKey scaffoldAppBarKey = GlobalKey();
+  GlobalKey scaffoldBodyBarKey = GlobalKey();
+  GlobalKey fabKey = GlobalKey();
+
+  @override
   Widget build(BuildContext context) {
+    initTargets();
+    WidgetsBinding.instance.addPostFrameCallback(afterLayout(context));
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -18,9 +33,27 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Colors.black54,
       ),
       backgroundColor: Colors.grey[850],
-      body: Container(
-        color: Colors.grey[800],
-        child: TodolistScreen(),
+      body: Stack(
+        children: <Widget>[
+          Container(
+            color: Colors.grey[800],
+            child: TodolistScreen(),
+          ),
+          Container(
+            key: scaffoldBodyBarKey,
+            height: 100,
+            width: 100,
+            margin: EdgeInsets.only(right: 16, left: 16, top: 50),
+            color: Colors.pink,
+          ),
+          Container(
+            key: fabKey,
+            height: 100,
+            width: 100,
+            margin: EdgeInsets.only(right: 16, bottom: 16),
+            color: Colors.green,
+          )
+        ],
       ),
       floatingActionButton: AnimatedFloatingActionButton(
         fabButtons: <Widget>[
@@ -80,8 +113,8 @@ class HomeScreen extends StatelessWidget {
   Widget done(BuildContext context) {
     return Container(
       child: FloatingActionButton(
-        onPressed: (){
-          Navigator.pushNamed(context, '/doneTodolist');
+        onPressed: () {
+          Navigator.pushNamed(context, DoneTodolistScreen.routeName);
         },
         tooltip: 'Done Item(s)',
         heroTag: 'Done Item(s)',
@@ -100,8 +133,8 @@ class HomeScreen extends StatelessWidget {
   Widget delete(BuildContext context) {
     return Container(
       child: FloatingActionButton(
-        onPressed: (){
-          Navigator.pushNamed(context, '/deleteTodolist');
+        onPressed: () {
+          Navigator.pushNamed(context, DeleteTodolistScreen.routeName);
         },
         tooltip: 'Deleted Item(s)',
         heroTag: 'Deleted Item(s)',
@@ -121,7 +154,7 @@ class HomeScreen extends StatelessWidget {
     return Container(
       child: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/overdueTodolist');
+          Navigator.pushNamed(context, OverdueTodolistScreen.routeName);
         },
         tooltip: 'Overdue Item(s)',
         heroTag: 'Overdue Item(s)',
@@ -140,17 +173,23 @@ class HomeScreen extends StatelessWidget {
   List<Widget> popupMenu(BuildContext context) {
     return <Widget>[
       PopupMenuButton<String>(
-        onSelected: (String choice) async{
+        key: scaffoldAppBarKey,
+        onSelected: (String choice) async {
           choiceAction(context, choice);
         },
-        itemBuilder: (context){
-          return PopupMenuChoice.choices.map((PopupMenuChoice choice){
+        itemBuilder: (context) {
+          return PopupMenuChoice.choices.map((PopupMenuChoice choice) {
             return PopupMenuItem<String>(
               value: choice.title,
               child: Row(
                 children: <Widget>[
-                  Icon(choice.icon, color: Colors.black,), 
-                  SizedBox(width: 10,), 
+                  Icon(
+                    choice.icon,
+                    color: Colors.black,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
                   Text(choice.title)
                 ],
               ),
@@ -161,33 +200,188 @@ class HomeScreen extends StatelessWidget {
     ];
   }
 
-  void choiceAction(BuildContext context, String choice){
-    if(choice == PopupMenuChoice.Setting){
-      Navigator.pushNamed(context, '/setting');
+  void choiceAction(BuildContext context, String choice) {
+    if (choice == PopupMenuChoice.Setting) {
+      Navigator.pushNamed(context, SettingScreen.routeName);
       print('Setting');
-    }
-    else if(choice == PopupMenuChoice.Share){
+    } else if (choice == PopupMenuChoice.Share) {
       print('Share');
     }
   }
 
+  void initTargets() {
+    targets.add(
+      TargetFocus(
+        identify: "Target 1",
+        keyTarget: scaffoldAppBarKey,
+        contents: [
+          ContentTarget(
+            align: AlignContent.bottom,
+            child: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Popup menu',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20.0),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      'Custom app preferences and share your experience',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+        shape: ShapeLightFocus.RRect,
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "Target 2",
+        keyTarget: scaffoldBodyBarKey,
+        contents: [
+          ContentTarget(
+            align: AlignContent.left,
+            child: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Todolist content',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20.0),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      'Manage your event and schedule',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          ContentTarget(
+            align: AlignContent.top,
+            child: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Multiples content",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20.0),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+        shape: ShapeLightFocus.RRect,
+      ),
+    );
+    targets.add(
+      TargetFocus(
+        identify: "Target 3",
+        keyTarget: fabKey,
+        contents: [
+          ContentTarget(
+            align: AlignContent.right,
+            child: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    "Title lorem ipsum",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20.0),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      'Target 3: Keybutton 5',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+        shape: ShapeLightFocus.RRect,
+      ),
+    );
+  }
+
+  void showTutorial(BuildContext context) {
+    TutorialCoachMark(
+      context,
+      targets: targets,
+      colorShadow: Colors.red,
+      textSkip: "SKIP",
+      paddingFocus: 10,
+      opacityShadow: 0.8,
+      finish: () {
+        print("finish");
+      },
+      clickTarget: (target) {
+        print(target);
+      },
+      clickSkip: () {
+        print("skip");
+      },
+    )..show();
+  }
+
+  afterLayout(BuildContext context) {
+    Future.delayed(
+      Duration(milliseconds: 100),
+      () {
+        showTutorial(context);
+      },
+    );
+  }
 }
 
-class PopupMenuChoice{
+class PopupMenuChoice {
   final String title;
   final IconData icon;
 
-  static const Setting= 'Setting';
-  static const Share= 'Share';
+  static const Setting = 'Setting';
+  static const Share = 'Share';
   const PopupMenuChoice(this.title, this.icon);
 
-  static const List<PopupMenuChoice> choices= [
-    PopupMenuChoice(Setting, Icons.settings), 
+  static const List<PopupMenuChoice> choices = [
+    PopupMenuChoice(Setting, Icons.settings),
     PopupMenuChoice(Share, Icons.share)
   ];
 }
-
-
 
 // https://pub.dev/documentation/animated_floatactionbuttons/latest/
 // https://medium.com/flutterpub/flutter-5-bottom-sheet-2d56bf9f3bc

@@ -2,25 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:tutorial_coach_mark/animated_focus_light.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-class Send extends StatelessWidget {
+class SendFeedbackScreen extends StatelessWidget {
   static const routeName = '/setting_send_feedback';
 
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class SendFeedbackScreen extends StatefulWidget {
-  static const routeName = '/setting_send_feedback';
-
-  @override
-  _SendFeedbackScreenState createState() => _SendFeedbackScreenState();
-}
-
-class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
   List<TargetFocus> targets = List();
-
   GlobalKey keyButton = GlobalKey();
   GlobalKey keyButton2 = GlobalKey();
   GlobalKey keyButton3 = GlobalKey();
@@ -28,14 +13,10 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
   GlobalKey keyButton5 = GlobalKey();
 
   @override
-  void initState() {
-    initTargets();
-    WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    initTargets();
+    WidgetsBinding.instance.addPostFrameCallback(afterLayout(context));
+
     return Scaffold(
       body: Container(
         color: Colors.white,
@@ -46,17 +27,18 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
               child: Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  key: keyButton,
+                  // key: keyButton,
                   color: Colors.blue,
                   height: 100,
                   width: MediaQuery.of(context).size.width - 50,
                   child: Align(
                     alignment: Alignment.center,
                     child: RaisedButton(
+                      key: keyButton,
                       color: Colors.blueAccent,
                       child: Icon(Icons.remove_red_eye),
                       onPressed: () {
-                        showTutorial();
+                        showTutorial(context);
                       },
                     ),
                   ),
@@ -145,13 +127,13 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Text(
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
+                        'Target 1: Keybutton 1',
                         style: TextStyle(color: Colors.white),
                       ),
                     )
                   ],
                 ),
-              ))
+              ),)
         ],
         shape: ShapeLightFocus.RRect,
       ),
@@ -178,7 +160,7 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
                     child: Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
+                      'Target 2: Keybutton 2',
                       style: TextStyle(color: Colors.white),
                     ),
                   )
@@ -237,7 +219,7 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0),
                     child: Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
+                      'Target 3: Keybutton 5',
                       style: TextStyle(color: Colors.white),
                     ),
                   )
@@ -277,7 +259,7 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
                     ),
                   ),
                   Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
+                    'Target 4: Keybutton 3',
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -310,7 +292,7 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
                     ),
                   ),
                   Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pulvinar tortor eget maximus iaculis.",
+                    'Target 5: Keybutton 2',
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -347,7 +329,7 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
     );
   }
 
-  void showTutorial() {
+  void showTutorial(BuildContext context) {
     TutorialCoachMark(
       context,
       targets: targets,
@@ -367,14 +349,16 @@ class _SendFeedbackScreenState extends State<SendFeedbackScreen> {
     )..show();
   }
 
-  void _afterLayout(_) {
+  afterLayout(BuildContext context) {
     Future.delayed(
       Duration(milliseconds: 100),
       () {
-        showTutorial();
+        showTutorial(context);
       },
     );
   }
 }
+
+
 
 // https://www.didierboelens.com/faq/week2/
