@@ -1,3 +1,0 @@
-enum UnitType{
-  KilogamMetter, FeetPound
-}

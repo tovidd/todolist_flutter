@@ -16,6 +16,7 @@ import 'screen/setting/change_password/change_password_screen.dart';
 import 'screen/setting/push_notifications/push_notifications_screen.dart';
 import 'screen/setting/rate_our_app/rate_our_app_screen.dart';
 import 'screen/setting/send_feedback/send_feedback_screen.dart';
+import 'screen/setting/privacy_policy/privacy_policy_screen.dart';
 
 class App extends StatelessWidget {
   @override
@@ -75,6 +76,9 @@ class App extends StatelessWidget {
         break;
       case SendFeedbackScreen.routeName:
         return MaterialPageRoute(builder: (_) => SendFeedbackScreen());
+        break;
+      case PrivacyPolicyScreen.routeName:
+        return MaterialPageRoute(builder: (_) => PrivacyPolicyScreen());
         break;
       default:
         MaterialPageRoute(builder: (_) => pageNotFound());

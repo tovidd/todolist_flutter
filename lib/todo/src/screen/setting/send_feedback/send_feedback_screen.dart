@@ -333,7 +333,7 @@ class SendFeedbackScreen extends StatelessWidget {
     TutorialCoachMark(
       context,
       targets: targets,
-      colorShadow: Colors.red,
+      colorShadow: Colors.black,
       textSkip: "SKIP",
       paddingFocus: 10,
       opacityShadow: 0.8,
