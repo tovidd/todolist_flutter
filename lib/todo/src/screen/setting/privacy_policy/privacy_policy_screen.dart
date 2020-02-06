@@ -14,6 +14,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
   AnimationController controller, controller2;
   Tween tween, tween2;
   bool isArrive = false, isArrive2 = false;
+  GlobalKey cloudKey = GlobalKey();
+  final height = window.physicalSize.height;
+  final width = window.physicalSize.width;
 
   @override
   void initState() {
@@ -44,10 +47,10 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
     );
     controller.forward();
 
-    tween2 = Tween<double>(begin: 800, end: 300);
+    tween2 = Tween<double>(begin: height, end: height - (height - 100));
     controller2 = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 5),
+      duration: Duration(milliseconds: 600),
     );
     animation2 = tween2.animate(controller2);
     animation2.addListener(
@@ -78,64 +81,81 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Drawing Paths',
-      home: Container(
-        color: Colors.white,
-        child: CustomPaint(
-          painter: CurvePainter(),
-        ),
-      ),
-    );
+//    return MaterialApp(
+//      title: 'Drawing Paths',
+//      home: Container(
+//        color: Colors.white,
+//        child: CustomPaint(
+//          painter: CurvePainter(),
+//        ),
+//      ),
+//    );
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Privacy Policy'),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(50.0),
+        child: AppBar(
+          title: Text('Privacy Policy'),
+        ),
       ),
-//      body: buildBody(context),
       body: buildBody(context),
     );
   }
 
   Widget buildBody(BuildContext context) {
     return Container(
-      color: Colors.yellowAccent,
+      color: Colors.deepPurpleAccent,
       child: Stack(
+        alignment: Alignment.center,
         children: <Widget>[
+//          Positioned(
+//            child: Material(
+//              child: Icon(
+//                  isArrive ? Icons.accessibility : Icons.accessible_forward,
+//                  textDirection: TextDirection.ltr,
+//                  size: 80.0),
+//              color: Colors.transparent,
+//            ),
+//            left: animation.value, // Animated value
+//            top: 30.0, // Fixed value
+//          ),
+//          Positioned(
+//            child: isArrive
+//                ? Text(
+//                    'HA HA HA',
+//                    style: TextStyle(fontSize: 30),
+//                  )
+//                : Text(
+//                    'WK WK WK',
+//                    style: TextStyle(fontSize: 30),
+//                  ),
+//            right: animation.value,
+//            top: 100,
+//          ),
           Positioned(
-            child: Material(
-              child: Icon(
-                  isArrive ? Icons.accessibility : Icons.accessible_forward,
-                  textDirection: TextDirection.ltr,
-                  size: 80.0),
-              color: Colors.transparent,
-            ),
-            left: animation.value, // Animated value
-            top: 30.0, // Fixed value
-          ),
-          Positioned(
-            child: isArrive
-                ? Text(
-                    'HA HA HA',
-                    style: TextStyle(fontSize: 30),
-                  )
-                : Text(
-                    'WK WK WK',
-                    style: TextStyle(fontSize: 30),
+            width: window.physicalSize.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Container(
+                  child: Image.asset(
+                    'assets/ic_cloud.png',
+                    height: height - (height - 150),
+                    color: Colors.grey[200],
+                    fit: BoxFit.cover,
                   ),
-            right: animation.value,
-            top: 100,
-          ),
-          Positioned(
-            child: Container(
-              color: Colors.pinkAccent,
-              height: 400,
-              width: MediaQuery.of(context).size.width,
-              child: ListView(
-                children: <Widget>[
-                  container(),
-                ],
-              ),
+                ),
+                Container(
+                  color: Colors.grey[200],
+                  height: height - (25 + 50 + 100 + 150),
+                  width: width,
+                  child: ListView(
+                    children: <Widget>[
+                      container(),
+                    ],
+                  ),
+                ),
+              ],
             ),
             top: animation2.value,
             bottom: 0.0,
@@ -175,12 +195,6 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
               hintText: 'Enter your password',
             ),
           ),
-          SizedBox(
-            height: 20,
-          ),
-          CustomPaint(
-            painter: CurvePainter(),
-          ),
         ],
       ),
     );
@@ -196,11 +210,21 @@ class CurvePainter extends CustomPainter {
 
     var path = Path();
 
-    path.moveTo(0, size.height * 0.25);
+    path.moveTo(0.0, size.height);
+    path.lineTo(0.0, size.height * 0.95);
+    path.quadraticBezierTo(size.width * 0.15, size.height * 0.85,
+        size.width * 0.25, size.height * 0.95);
+    path.quadraticBezierTo(size.width * 0.30, size.height * 0.92,
+        size.width * 0.35, size.height * 0.95);
+    path.quadraticBezierTo(size.width * 0.40, size.height * 0.90,
+        size.width * 0.45, size.height * 0.95);
+    path.quadraticBezierTo(size.width * 0.55, size.height * 0.90,
+        size.width * 0.70, size.height * 0.95);
+    path.quadraticBezierTo(size.width * 0.80, size.height * 0.90,
+        size.width * 0.85, size.height * 0.95);
     path.quadraticBezierTo(
-        size.width / 2, size.height / 2, size.width, size.height * 0.25);
-    path.lineTo(size.width, 0);
-    path.lineTo(0, 0);
+        size.width * 0.85, size.height * 0.90, size.width, size.height * 0.87);
+    path.lineTo(size.width, size.height);
 
     canvas.drawPath(path, paint);
   }
