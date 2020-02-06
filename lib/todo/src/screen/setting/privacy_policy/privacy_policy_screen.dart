@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 class PrivacyPolicyScreen extends StatefulWidget {
   static const routeName = '/privacy_policy';
@@ -13,7 +14,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
   Animation<double> animation, animation2;
   AnimationController controller, controller2;
   Tween tween, tween2;
-  bool isArrive = false, isArrive2 = false;
+  bool isArrive = false, isStart = true;
   GlobalKey cloudKey = GlobalKey();
   final height = window.physicalSize.height;
   final width = window.physicalSize.width;
@@ -23,10 +24,10 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
     super.initState();
     print(window.physicalSize.height);
 
-    tween = Tween<double>(begin: 0, end: 400);
+    tween = Tween<double>(begin: 0, end: 500);
     controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 6),
     );
     animation = tween.animate(controller);
     animation.addListener(
@@ -47,10 +48,10 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
     );
     controller.forward();
 
-    tween2 = Tween<double>(begin: height, end: height - (height - 100));
+    tween2 = Tween<double>(begin: height - 600, end: height - (height - 100));
     controller2 = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 600),
+      duration: Duration(milliseconds: 800),
     );
     animation2 = tween2.animate(controller2);
     animation2.addListener(
@@ -61,11 +62,12 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
     animation2.addStatusListener(
       (status) {
         if (status == AnimationStatus.completed) {
-//          isArrive2 = true;
+          isStart = false;
 //          controller2.reverse();
         } else if (status == AnimationStatus.dismissed) {
-          isArrive2 = false;
+          isStart = true;
           controller2.forward();
+          print('finish');
         }
       },
     );
@@ -104,34 +106,19 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
 
   Widget buildBody(BuildContext context) {
     return Container(
-      color: Colors.deepPurpleAccent,
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-//          Positioned(
-//            child: Material(
-//              child: Icon(
-//                  isArrive ? Icons.accessibility : Icons.accessible_forward,
-//                  textDirection: TextDirection.ltr,
-//                  size: 80.0),
-//              color: Colors.transparent,
-//            ),
-//            left: animation.value, // Animated value
-//            top: 30.0, // Fixed value
-//          ),
-//          Positioned(
-//            child: isArrive
-//                ? Text(
-//                    'HA HA HA',
-//                    style: TextStyle(fontSize: 30),
-//                  )
-//                : Text(
-//                    'WK WK WK',
-//                    style: TextStyle(fontSize: 30),
-//                  ),
-//            right: animation.value,
-//            top: 100,
-//          ),
+          Container(
+            height: height,
+            width: width,
+            color: Colors.deepPurpleAccent,
+            child: Container(
+              width: width,
+              color: Colors.grey[200],
+              margin: EdgeInsets.only(top: 500),
+            ),
+          ),
           Positioned(
             width: window.physicalSize.width,
             child: Column(
@@ -140,14 +127,14 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
                 Container(
                   child: Image.asset(
                     'assets/ic_cloud.png',
-                    height: height - (height - 150),
+                    height: (height - (height - 150)),
                     color: Colors.grey[200],
                     fit: BoxFit.cover,
                   ),
                 ),
                 Container(
                   color: Colors.grey[200],
-                  height: height - (25 + 50 + 100 + 150),
+                  height: isStart ? 400 : (height - (25 + 50 + 100 + 150)),
                   width: width,
                   child: ListView(
                     children: <Widget>[
@@ -159,7 +146,17 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
             ),
             top: animation2.value,
             bottom: 0.0,
-          )
+          ),
+          Positioned(
+            child: isArrive
+                ? Container()
+                : Image.asset(
+                    'assets/ic_bird.gif',
+                    height: 100,
+                  ),
+            right: animation.value,
+            top: 150,
+          ),
         ],
         textDirection: TextDirection.ltr,
       ),
@@ -168,32 +165,180 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
 
   Widget container() {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.only(left: 16, bottom: 16, right: 16),
       child: Column(
         children: <Widget>[
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter your email',
+          Card(
+            child: Container(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        '\$1250.00',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25),
+                      ),
+                      Text(
+                        'Limit',
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  LinearProgressIndicator(
+                    value: 0.75,
+                    backgroundColor: Colors.grey[200],
+                    valueColor: 0.75 > 0.5
+                        ? AlwaysStoppedAnimation<Color>(Colors.green)
+                        : AlwaysStoppedAnimation<Color>(Colors.red),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'Balance this month',
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Colors.grey,
+                        size: 30,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(
             height: 20,
           ),
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter your username',
+          Card(
+            child: Container(
+              padding: EdgeInsets.all(16),
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        '\$274.00',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 25),
+                      ),
+                      Text(
+                        'Limit',
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  LinearProgressIndicator(
+                    value: 0.1,
+                    backgroundColor: Colors.grey[200],
+                    valueColor: 0.1 > 0.5
+                        ? AlwaysStoppedAnimation<Color>(Colors.green)
+                        : AlwaysStoppedAnimation<Color>(Colors.red),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text(
+                        'Monthly change',
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_right,
+                        color: Colors.grey,
+                        size: 30,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
           SizedBox(
             height: 20,
           ),
-          TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              hintText: 'Enter your password',
+          Card(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Container(
+                padding: EdgeInsets.all(8),
+                color: Colors.deepPurpleAccent,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      Icons.nature,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Upgrade your account',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'Create your budget connect your account',
+                          style: TextStyle(color: Colors.white, fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      flex: 1,
+                      child: RaisedButton(
+                        color: Colors.white,
+                        onPressed: () {},
+                        child: Text(
+                          'GET',
+                          style: TextStyle(
+                              color: Colors.deepPurpleAccent, letterSpacing: 2),
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
+            shape: StadiumBorder(
+              side: BorderSide(
+                color: Colors.transparent,
+                width: 0.0,
+              ),
+            ),
+          ),
+          CustomPaint(
+            painter: TriangleClipper(),
           ),
         ],
       ),
@@ -225,6 +370,28 @@ class CurvePainter extends CustomPainter {
     path.quadraticBezierTo(
         size.width * 0.85, size.height * 0.90, size.width, size.height * 0.87);
     path.lineTo(size.width, size.height);
+
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
+  }
+}
+
+class TriangleClipper extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint();
+    paint.color = Colors.green[800];
+    paint.style = PaintingStyle.fill; // Change this to fill
+
+    var path = Path();
+
+    path.lineTo(size.width, 0.0);
+    path.lineTo(size.width / 2, size.height);
+    path.close();
 
     canvas.drawPath(path, paint);
   }

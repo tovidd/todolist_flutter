@@ -14,7 +14,7 @@ class Loading extends StatelessWidget {
       color: Colors.white,
       child: Center(
         child: Image.asset(
-          'assets/ic_gary.gif',
+          'assets/ic_gary2.gif',
           height: 100,
         ),
       ),
@@ -32,6 +32,4 @@ class Loading extends StatelessWidget {
       ),
     );
   }
-
-
 }
