@@ -10,6 +10,7 @@ import 'delete_todolist_screen.dart';
 import 'done_todolist_screen.dart';
 import 'overdue_todolist_screen.dart';
 import 'setting/setting_screen.dart';
+import 'widget/widget_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/';
@@ -166,23 +167,25 @@ class HomeScreen extends StatelessWidget {
           choiceAction(context, choice);
         },
         itemBuilder: (context) {
-          return PopupMenuChoice.choices.map((PopupMenuChoice choice) {
-            return PopupMenuItem<String>(
-              value: choice.title,
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    choice.icon,
-                    color: Colors.black,
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(choice.title)
-                ],
-              ),
-            );
-          }).toList();
+          return PopupMenuChoice.choices.map(
+            (PopupMenuChoice choice) {
+              return PopupMenuItem<String>(
+                value: choice.title,
+                child: Row(
+                  children: <Widget>[
+                    Icon(
+                      choice.icon,
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(choice.title)
+                  ],
+                ),
+              );
+            },
+          ).toList();
         },
       ),
     ];
@@ -197,6 +200,9 @@ class HomeScreen extends StatelessWidget {
     } else if (choice == PopupMenuChoice.CoachMark) {
       afterLayout(context);
       print('CoachMark');
+    } else if (choice == PopupMenuChoice.Widget) {
+      Navigator.pushNamed(context, WidgetScreen.routeName);
+      print('Widget');
     }
   }
 
@@ -274,13 +280,15 @@ class PopupMenuChoice {
   static const Setting = 'Setting';
   static const Share = 'Share';
   static const CoachMark = 'CoachMark';
+  static const Widget = 'Widget';
 
   const PopupMenuChoice(this.title, this.icon);
 
   static const List<PopupMenuChoice> choices = [
     PopupMenuChoice(Setting, Icons.settings),
     PopupMenuChoice(Share, Icons.share),
-    PopupMenuChoice(CoachMark, Icons.nature_people)
+    PopupMenuChoice(CoachMark, Icons.nature_people),
+    PopupMenuChoice(Widget, Icons.widgets)
   ];
 }
 

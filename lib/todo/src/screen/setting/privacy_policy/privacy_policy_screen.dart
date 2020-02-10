@@ -91,6 +91,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
         ),
       ),
       body: buildBody(context),
+      backgroundColor: Colors.deepPurpleAccent,
     );
   }
 
@@ -102,11 +103,6 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
       child: Stack(
         alignment: Alignment.center,
         children: <Widget>[
-          Container(
-            height: height,
-            width: width,
-            color: Colors.deepPurpleAccent,
-          ),
           Positioned(
             width: width,
             child: Column(
@@ -133,16 +129,6 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
             top: animation2.value,
             bottom: 0.0,
           ),
-          Positioned(
-            child: isArrive
-                ? Container()
-                : Image.asset(
-                    'assets/ic_bird.gif',
-                    height: 100,
-                  ),
-            right: animation.value,
-            top: 150,
-          ),
         ],
         textDirection: TextDirection.ltr,
       ),
@@ -158,11 +144,11 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
       color: Colors.greenAccent,
       child: Column(
         children: <Widget>[
-          balanceThisMonth(),
+          card(balance: 1250.00, title: 'Balance this month', progress: 0.75),
           SizedBox(
             height: 20,
           ),
-          monthlyChange(),
+          card(balance: 274.00, title: 'Monthly change', progress: 0.10),
           SizedBox(
             height: 20,
           ),
@@ -197,7 +183,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
     );
   }
 
-  Widget balanceThisMonth() {
+  Widget card({double balance, String title, double progress}) {
     return Card(
       child: Container(
         padding: EdgeInsets.all(16),
@@ -207,7 +193,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  '\$1250.00',
+                  '\$' + balance.toStringAsFixed(2),
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 Text(
@@ -220,9 +206,9 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
               height: 20,
             ),
             LinearProgressIndicator(
-              value: 0.75,
+              value: progress,
               backgroundColor: Colors.grey[200],
-              valueColor: 0.75 > 0.5
+              valueColor: progress > 0.5
                   ? AlwaysStoppedAnimation<Color>(Colors.green)
                   : AlwaysStoppedAnimation<Color>(Colors.red),
             ),
@@ -233,59 +219,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  'Balance this month',
-                  style: TextStyle(color: Colors.grey, fontSize: 16),
-                ),
-                Icon(
-                  Icons.keyboard_arrow_right,
-                  color: Colors.grey,
-                  size: 20,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget monthlyChange() {
-    return Card(
-      child: Container(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  '\$274.00',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-                Text(
-                  'Limit',
-                  style: TextStyle(color: Colors.grey, fontSize: 16),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            LinearProgressIndicator(
-              value: 0.1,
-              backgroundColor: Colors.grey[200],
-              valueColor: 0.1 > 0.5
-                  ? AlwaysStoppedAnimation<Color>(Colors.green)
-                  : AlwaysStoppedAnimation<Color>(Colors.red),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'Monthly change',
+                  title,
                   style: TextStyle(color: Colors.grey, fontSize: 16),
                 ),
                 Icon(

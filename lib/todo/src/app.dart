@@ -5,6 +5,7 @@ import 'bloc/todolist/todolist_provider.dart';
 import 'bloc/setting/change_password/change_password_provider.dart';
 import 'bloc/setting/push_notifications/push_notifications_provider.dart';
 import 'bloc/setting/rate_our_app/rate_our_app_provider.dart';
+import 'bloc/widget/slider/custom_number_picker_provider.dart';
 
 import 'screen/home_screen.dart';
 import 'screen/setting/setting_screen.dart';
@@ -17,19 +18,24 @@ import 'screen/setting/push_notifications/push_notifications_screen.dart';
 import 'screen/setting/rate_our_app/rate_our_app_screen.dart';
 import 'screen/setting/send_feedback/send_feedback_screen.dart';
 import 'screen/setting/privacy_policy/privacy_policy_screen.dart';
+import 'screen/widget/widget_screen.dart';
+import 'screen/widget/slider/custom_number_picker_screen.dart';
+import 'screen/widget/slider/review_slider.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return RateOurAppProvider(
-      child: PushNotificationsProvider(
-        child: ChangePasswordProvider(
-          child: ProfileInformationProvider(
-            child: TodolistProvider(
-              child: MaterialApp(
-                title: 'Dashboard',
-                onGenerateRoute: routes,
-                debugShowCheckedModeBanner: false,
+    return CustomNumberPickerProvider(
+      child: RateOurAppProvider(
+        child: PushNotificationsProvider(
+          child: ChangePasswordProvider(
+            child: ProfileInformationProvider(
+              child: TodolistProvider(
+                child: MaterialApp(
+                  title: 'Dashboard',
+                  onGenerateRoute: routes,
+                  debugShowCheckedModeBanner: false,
+                ),
               ),
             ),
           ),
@@ -79,6 +85,15 @@ class App extends StatelessWidget {
         break;
       case PrivacyPolicyScreen.routeName:
         return MaterialPageRoute(builder: (_) => PrivacyPolicyScreen());
+        break;
+      case WidgetScreen.routeName:
+        return MaterialPageRoute(builder: (_) => WidgetScreen());
+        break;
+      case CustomNumberPickerScreen.routeName:
+        return MaterialPageRoute(builder: (_) => CustomNumberPickerScreen());
+        break;
+      case ReviewSlider.routeName:
+        return MaterialPageRoute(builder: (_) => ReviewSlider());
         break;
       default:
         MaterialPageRoute(builder: (_) => pageNotFound());
