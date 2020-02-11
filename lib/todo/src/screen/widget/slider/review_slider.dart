@@ -10,10 +10,10 @@ class ReviewSlider extends StatefulWidget {
   const ReviewSlider({
     Key key,
     @required this.onChange,
-    this.initialValue = 2,
+    this.initialValue = 4,
     this.options = const ['Terrible', 'Bad', 'Okay', 'Good', 'Great'],
     this.optionStyle,
-  },)  : assert(
+  })  : assert(
           initialValue > 0 && initialValue <= 4,
           'Initial value should be between 0 and 4',
         ),

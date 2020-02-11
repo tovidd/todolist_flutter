@@ -21,6 +21,7 @@ import 'screen/setting/privacy_policy/privacy_policy_screen.dart';
 import 'screen/widget/widget_screen.dart';
 import 'screen/widget/slider/custom_number_picker_screen.dart';
 import 'screen/widget/slider/review_slider.dart';
+import 'screen/widget/progress_indicator/custom_liquid_progress_indicator.dart';
 
 class App extends StatelessWidget {
   @override
@@ -93,7 +94,12 @@ class App extends StatelessWidget {
         return MaterialPageRoute(builder: (_) => CustomNumberPickerScreen());
         break;
       case ReviewSlider.routeName:
-        return MaterialPageRoute(builder: (_) => ReviewSlider());
+        return MaterialPageRoute(
+            builder: (_) => ReviewSlider(onChange: (val) {}));
+        break;
+      case CustomLiquidProgressIndicator.routeName:
+        return MaterialPageRoute(
+            builder: (_) => CustomLiquidProgressIndicator());
         break;
       default:
         MaterialPageRoute(builder: (_) => pageNotFound());
