@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'slider/custom_number_picker_screen.dart';
 import 'slider/review_slider.dart';
 import 'progress_indicator/custom_liquid_progress_indicator.dart';
+import 'progress_indicator/custom/example.dart';
 
 class WidgetScreen extends StatelessWidget {
   static const routeName = '/widget_screen';
@@ -27,6 +28,7 @@ class WidgetScreen extends StatelessWidget {
           card(context, CustomNumberPickerScreen.routeName),
           card(context, ReviewSlider.routeName),
           card(context, CustomLiquidProgressIndicator.routeName),
+          card(context, Example.routeName),
         ],
       ),
     );

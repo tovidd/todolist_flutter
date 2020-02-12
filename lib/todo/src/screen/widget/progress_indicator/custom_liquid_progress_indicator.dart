@@ -2,6 +2,37 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
 
+class CustomLiquidProgressIndicator2 extends StatelessWidget {
+  static const routeName = '/custom_liquid_progress_indicator';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Masking'),
+      ),
+      body: buildBody(),
+      backgroundColor: Colors.yellow,
+    );
+  }
+
+  Widget buildBody() {
+    return Container(
+      margin: EdgeInsets.only(top: 100),
+      child: ShaderMask(
+        child: Image.asset('assets/ic_bird.gif'),
+        shaderCallback: (Rect bounds) {
+          return LinearGradient(
+            colors: [Colors.blue, Colors.redAccent, Colors.deepPurpleAccent],
+            stops: [0.0, 0.4, 0.7],
+          ).createShader(bounds);
+        },
+        blendMode: BlendMode.srcATop,
+      ),
+    );
+  }
+}
+
 class CustomLiquidProgressIndicator extends StatelessWidget {
   static const routeName = '/custom_liquid_progress_indicator';
 
@@ -97,63 +128,90 @@ class _AnimatedLiquidCustomProgressIndicatorState
   Widget build(BuildContext context) {
     final percentage = _animationController.value * 100;
     return Container(
-      child: Stack(
+      child: Column(
         children: <Widget>[
-          LiquidCustomProgressIndicator(
-            direction: Axis.vertical,
-            backgroundColor: Colors.transparent,
-            shapePath: _buildHeartPath(),
-            center: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Color(0xFF9DB7ED), Color(0xFFB68DC3)]),
+          Stack(
+            children: <Widget>[
+              Container(
+                color: Colors.lightBlueAccent,
+                child: LiquidCustomProgressIndicator(
+                  direction: Axis.vertical,
+                  backgroundColor: Colors.transparent,
+                  shapePath: _buildHeartPath(),
+                  center: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [Color(0xFF9DB7ED), Color(0xFFB68DC3)]),
+                    ),
+                  ),
+                ),
               ),
-            ),
+              LiquidCustomProgressIndicator(
+                value: _animationController.value,
+                direction: Axis.vertical,
+                backgroundColor: Colors.transparent,
+                valueColor: AlwaysStoppedAnimation(Color(0xFFF8798A)),
+                shapePath: _buildHeartPath(),
+                center: Text(
+                  "${percentage.toStringAsFixed(0)}%",
+                  style: TextStyle(
+                    color: Colors.lightGreenAccent,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
           ),
-          LiquidCustomProgressIndicator(
-            value: 0.5,
-            direction: Axis.vertical,
-            backgroundColor: Colors.transparent,
-            valueColor: AlwaysStoppedAnimation(Color(0xFFF8798A)),
-            shapePath: _buildHeartPath(),
-            center: Text(
-              "${percentage.toStringAsFixed(0)}%",
-              style: TextStyle(
-                color: Colors.lightGreenAccent,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          SizedBox(
+            height: 20,
           ),
-          Positioned.fill(
-            child: Align(
-              alignment: Alignment.center,
-              child: Image.asset(
-                'assets/ic_heart.png',
-                color: Colors.white,
+          Stack(
+            children: <Widget>[
+              LiquidCustomProgressIndicator(
+                direction: Axis.vertical,
+                backgroundColor: Colors.transparent,
+                shapePath: _buildHeartPath2(),
+                center: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xFF9DB7ED), Color(0xFFB68DC3)]),
+                  ),
+                ),
               ),
-            ),
-          )
+              LiquidCustomProgressIndicator(
+                value: 0.1,
+                direction: Axis.vertical,
+                backgroundColor: Colors.transparent,
+                valueColor: AlwaysStoppedAnimation(Color(0xFFF8798A)),
+                shapePath: _buildHeartPath2(),
+              ),
+            ],
+          ),
         ],
       ),
     );
   }
 
   Path _buildHeartPath() {
+    const double x = 100;
     return Path()
-      ..moveTo(55, 15)
-      ..cubicTo(55, 12, 50, 0, 30, 0)
-      ..cubicTo(0, 0, 0, 37.5, 0, 37.5)
-      ..cubicTo(0, 55, 20, 77, 55, 95)
-      ..cubicTo(90, 77, 110, 55, 110, 37.5)
-      ..cubicTo(110, 37.5, 110, 0, 80, 0)
-      ..cubicTo(65, 0, 55, 12, 55, 15)
+      ..moveTo(x, 30)
+      ..cubicTo(x, 20, 80, 0, 60, 0)
+      ..cubicTo(0, 0, 0, 50, 0, 50)
+      ..cubicTo(0, 65, 30, 60, x, 180)
+      //
+      ..cubicTo(200, 120, x * 2, 65, x * 2, 50)
+      ..cubicTo(x * 2, 50, x * 2, 0, 160, 0)
+      ..cubicTo(140, 0, 120, 0, 120, 20)
       ..close();
   }
 
-  Path _buildHeartPathSmall() {
+  Path _buildHeartPath2() {
     return Path()
       ..moveTo(55, 15)
       ..cubicTo(55, 12, 50, 0, 30, 0)

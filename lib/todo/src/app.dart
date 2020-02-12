@@ -22,6 +22,7 @@ import 'screen/widget/widget_screen.dart';
 import 'screen/widget/slider/custom_number_picker_screen.dart';
 import 'screen/widget/slider/review_slider.dart';
 import 'screen/widget/progress_indicator/custom_liquid_progress_indicator.dart';
+import 'screen/widget/progress_indicator/custom/example.dart';
 
 class App extends StatelessWidget {
   @override
@@ -100,6 +101,9 @@ class App extends StatelessWidget {
       case CustomLiquidProgressIndicator.routeName:
         return MaterialPageRoute(
             builder: (_) => CustomLiquidProgressIndicator());
+        break;
+      case Example.routeName:
+        return MaterialPageRoute(builder: (_) => Example());
         break;
       default:
         MaterialPageRoute(builder: (_) => pageNotFound());
