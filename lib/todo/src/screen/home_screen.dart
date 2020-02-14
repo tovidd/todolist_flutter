@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
-import 'package:todolist/todo/src/resource/stateless_wrapper.dart';
 import 'package:tutorial_coach_mark/animated_focus_light.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
@@ -11,6 +10,7 @@ import 'done_todolist_screen.dart';
 import 'overdue_todolist_screen.dart';
 import 'setting/setting_screen.dart';
 import 'widget/widget_screen.dart';
+import '../screen/tb/tb_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/';
@@ -203,6 +203,9 @@ class HomeScreen extends StatelessWidget {
     } else if (choice == PopupMenuChoice.Widget) {
       Navigator.pushNamed(context, WidgetScreen.routeName);
       print('Widget');
+    } else if (choice == PopupMenuChoice.TB) {
+      Navigator.pushNamed(context, TBScreen.routeName);
+      print('TB');
     }
   }
 
@@ -281,6 +284,7 @@ class PopupMenuChoice {
   static const Share = 'Share';
   static const CoachMark = 'CoachMark';
   static const Widget = 'Widget';
+  static const TB = 'TB';
 
   const PopupMenuChoice(this.title, this.icon);
 
@@ -288,7 +292,8 @@ class PopupMenuChoice {
     PopupMenuChoice(Setting, Icons.settings),
     PopupMenuChoice(Share, Icons.share),
     PopupMenuChoice(CoachMark, Icons.nature_people),
-    PopupMenuChoice(Widget, Icons.widgets)
+    PopupMenuChoice(Widget, Icons.widgets),
+    PopupMenuChoice(TB, Icons.apps),
   ];
 }
 

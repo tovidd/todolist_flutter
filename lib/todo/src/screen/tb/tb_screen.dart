@@ -1,20 +1,17 @@
 import 'package:flutter/material.dart';
 
-import 'slider/custom_number_picker_screen.dart';
-import 'slider/review_slider.dart';
-import 'progress_indicator/custom_liquid_progress_indicator.dart';
-import 'progress_indicator/custom/example.dart';
-import 'listview/animated_listview_screen.dart';
+import 'kehamilan/kehamilan_screen.dart';
+import 'tema/tema_screen.dart';
 
-class WidgetScreen extends StatelessWidget {
-  static const routeName = '/widget_screen';
+class TBScreen extends StatelessWidget {
+  static const routeName = '/tb_screen';
   static GlobalKey pageKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Widget'),
+        title: Text('TB'),
       ),
       body: buildBody(context),
       backgroundColor: Colors.grey,
@@ -26,11 +23,8 @@ class WidgetScreen extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.all(16),
         children: <Widget>[
-          card(context, CustomNumberPickerScreen.routeName),
-          card(context, ReviewSlider.routeName),
-          card(context, CustomLiquidProgressIndicator.routeName),
-          card(context, Example.routeName),
-          card(context, AnimatedListViewScreen.routeName),
+          card(context, KehamilanScreen.routeName),
+          card(context, TemaScreen.routeName)
         ],
       ),
     );

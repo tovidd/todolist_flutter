@@ -141,7 +141,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen>
 
     return Container(
       padding: EdgeInsets.only(left: 16, bottom: 16, right: 16),
-      color: Colors.greenAccent,
+      color: Colors.grey[200],
       child: Column(
         children: <Widget>[
           card(balance: 1250.00, title: 'Balance this month', progress: 0.75),

@@ -203,7 +203,7 @@ class _AnimatedLiquidCustomProgressIndicatorState
       ..moveTo(x, 30)
       ..cubicTo(x, 20, 80, 0, 60, 0)
       ..cubicTo(0, 0, 0, 50, 0, 50)
-      ..cubicTo(0, 65, 30, 60, x, 180)
+      ..cubicTo(0, 65, -30, 60, x, 180)
       //
       ..cubicTo(200, 120, x * 2, 65, x * 2, 50)
       ..cubicTo(x * 2, 50, x * 2, 0, 160, 0)
