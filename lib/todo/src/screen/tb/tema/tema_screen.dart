@@ -67,14 +67,6 @@ class TemaScreen extends StatelessWidget {
     }
 
     Widget body(BuildContext context) {
-//      final List<String> _listViewData = [
-//        'Belajar Meditasi, Yuk!',
-//        'Belajar Meditasi, Yuk!',
-//        'Belajar Meditasi, Yuk!',
-//        'Belajar Meditasi, Yuk!',
-//        'Belajar Meditasi, Yuk!',
-//      ];
-
       Widget card(TemaModel data) {
         String image =
             'https://image.freepik.com/free-photo/summer-holiday-background_71965-5.jpg';
@@ -98,6 +90,7 @@ class TemaScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10.0),
                   child: Image.network(
                     data.selected ? image : image2,
+                    fit: BoxFit.fill,
                   ),
                 ),
               ),
@@ -110,13 +103,15 @@ class TemaScreen extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: Image.network(
                         headset,
-                        width: 40,
+                        width: 30,
                       ),
                     ),
                     Center(
                       child: Text(
                         data.title,
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                       ),
                     )
                   ],
