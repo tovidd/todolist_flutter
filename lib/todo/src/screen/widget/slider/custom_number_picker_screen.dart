@@ -77,44 +77,46 @@ class CustomNumberPickerScreen extends StatelessWidget {
 }
 
 class Carroussel extends StatefulWidget {
+  
   @override
   _CarrousselState createState() => new _CarrousselState();
 }
 
 class _CarrousselState extends State<Carroussel> {
-  PageController controller;
+  PageController pageController;
   int currentpage = 0;
 
   @override
   initState() {
     super.initState();
-    controller = new PageController(
+    pageController = PageController(
       initialPage: currentpage,
-      keepPage: false,
-      viewportFraction: 0.5,
+      keepPage: true,
+      viewportFraction: 0.25,
     );
   }
 
   @override
   dispose() {
-    controller.dispose();
+    pageController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: new Center(
-        child: new Container(
-          child: new PageView.builder(
+    return Scaffold(
+      body: Center(
+        child: Container(
+          child: PageView.builder(
+            itemCount: 10,
             onPageChanged: (value) {
               setState(() {
                 currentpage = value;
               });
             },
-            controller: controller,
-            itemBuilder: (context, index) => builder(index),
-//            itemBuilder: (context, index) => angka(index),
+            controller: pageController,
+            itemBuilder: (context, index) => angka(index),
+            physics: ScrollPhysics(),
           ),
         ),
       ),
@@ -122,33 +124,54 @@ class _CarrousselState extends State<Carroussel> {
   }
 
   angka(int index) {
-    return Text(
-      index.toString(),
-      style: TextStyle(fontSize: 30),
-    );
-  }
-
-  builder(int index) {
-    return new AnimatedBuilder(
-      animation: controller,
+    pageController.animateToPage(currentpage,
+        duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+    return AnimatedBuilder(
+      animation: pageController,
       builder: (context, child) {
         double value = 1.0;
-        if (controller.position.haveDimensions) {
-          value = controller.page - index;
+        if (pageController.position.haveDimensions) {
+          value = pageController.page - index;
           value = (1 - (value.abs() * .5)).clamp(0.0, 1.0);
         }
-
-        return new Center(
-          child: new SizedBox(
-            height: Curves.easeOut.transform(value) * 300,
+        return Center(
+          child: Container(
+            height: Curves.easeOut.transform(value) * 500,
             width: Curves.easeOut.transform(value) * 250,
             child: child,
           ),
         );
       },
-      child: new Container(
-        margin: const EdgeInsets.all(8.0),
-        color: index % 2 == 0 ? Colors.blue : Colors.red,
+      child: Center(
+        child: currentpage == index
+            ? Container(
+                margin: EdgeInsets.only(top: 40),
+                child: CircleAvatar(
+                  radius: 30,
+                  backgroundColor: Colors.blue,
+                  child: Text(
+                    (index).toString(),
+                    style: TextStyle(fontSize: 40, color: Colors.white),
+                  ),
+                ),
+              )
+            : GestureDetector(
+                onTap: () {
+                  setState(() {
+                    currentpage = index;
+                  });
+                },
+                child: Container(
+                  child: CircleAvatar(
+                    radius: 20,
+                    backgroundColor: Colors.blue[100],
+                    child: Text(
+                      (index).toString(),
+                      style: TextStyle(fontSize: 25, color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ),
       ),
     );
   }
