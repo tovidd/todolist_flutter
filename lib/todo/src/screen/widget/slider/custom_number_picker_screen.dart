@@ -77,7 +77,7 @@ class CustomNumberPickerScreen extends StatelessWidget {
 }
 
 class Carroussel extends StatefulWidget {
-  
+
   @override
   _CarrousselState createState() => new _CarrousselState();
 }

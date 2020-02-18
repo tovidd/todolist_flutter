@@ -149,11 +149,12 @@ class KehamilanScreen extends StatelessWidget {
                                       : snapshot.data,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 20,
+                                    fontSize: 16,
                                     color: !snapshot.hasData
                                         ? unSelectColor
                                         : selectedColor,
                                   ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 GestureDetector(
                                   onTap: () {
@@ -161,6 +162,7 @@ class KehamilanScreen extends StatelessWidget {
                                   },
                                   child: Icon(
                                     Icons.close,
+                                    size: 30,
                                     color: !snapshot.hasData
                                         ? unSelectColor
                                         : selectedColor,
@@ -263,7 +265,7 @@ class KehamilanScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               color: Colors.white,
             ),
-            child: Column(
+            child: ListView(
               children: <Widget>[
                 Center(
                   child: Text(
@@ -281,10 +283,17 @@ class KehamilanScreen extends StatelessWidget {
                 space(),
                 klikDanTentukanTanggal(),
                 space(),
-                !snapshot.hasData ? Container() : slider(),
+//                !snapshot.hasData ? Container() : slider(),
+                !snapshot.hasData
+                    ? Container()
+                    : Container(
+                        height: 200,
+                        child: Carroussel(bloc),
+                      ),
                 !snapshot.hasData ? Container() : heart(),
                 !snapshot.hasData ? Container() : space(),
                 buttonSimpan(),
+                space(),
               ],
             ),
           );
@@ -532,5 +541,112 @@ class _AnimatedLiquidCustomProgressIndicatorState
       ..cubicTo(110, 37.5, 110, 0, 80, 0)
       ..cubicTo(65, 0, 55, 12, 55, 15)
       ..close();
+  }
+}
+
+class Carroussel extends StatelessWidget {
+  KehamilanBloc bloc;
+
+  Carroussel(@required this.bloc);
+
+  PageController pageController;
+
+//  int currentpage = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    double _viewportFraction = 1 / 6;
+    return StreamBuilder(
+        stream: this.bloc.sliderValue,
+        builder: (context, AsyncSnapshot<double> snapshot) {
+          pageController = PageController(
+            initialPage: snapshot.data.toInt(),
+            keepPage: true,
+            viewportFraction: _viewportFraction,
+          );
+
+          return Center(
+            child: Container(
+              color: Colors.transparent,
+              child: PageView.builder(
+                itemCount: 36,
+                onPageChanged: (value) {
+                  this.bloc.addSliderValue(value.toDouble());
+                },
+                controller: pageController,
+                itemBuilder: (context, index) => angka(index, snapshot),
+                physics: ScrollPhysics(),
+              ),
+            ),
+          );
+        });
+  }
+
+  angka(int index, AsyncSnapshot<double> snapshot) {
+//    pageController.animateToPage(currentpage,
+//        duration: Duration(milliseconds: 500), curve: Curves.easeOut);
+    return AnimatedBuilder(
+      animation: pageController,
+      builder: (context, child) {
+        double value = 1.0;
+        if (pageController.position.haveDimensions) {
+          value = pageController.page - index;
+          value = (1 - (value.abs() * .5)).clamp(0.0, 1.0);
+        }
+        return Container(
+          alignment: Alignment.center,
+          child: child,
+        );
+      },
+      child: Center(
+        child: snapshot.data.toInt() == index
+            ? Container(
+                margin: EdgeInsets.only(top: 90),
+                child: CircleAvatar(
+                  radius: 55,
+                  backgroundColor: Colors.blue,
+                  child: Text(
+                    (index).toString(),
+                    style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              )
+            : GestureDetector(
+                onTap: () {
+                  this.bloc.addSliderValue(index.toDouble());
+                },
+                child: Container(
+                  margin: EdgeInsets.only(
+                    top: index == (snapshot.data.toInt() - 2) ||
+                            index == (snapshot.data.toInt() + 2)
+                        ? 30
+                        : index == (snapshot.data.toInt() - 1) ||
+                                index == (snapshot.data.toInt() + 1)
+                            ? 60
+                            : 0,
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    child: Text(
+                      (index).toString(),
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: index == (snapshot.data.toInt() - 2) ||
+                                  index == (snapshot.data.toInt() + 2)
+                              ? Colors.grey[400]
+                              : index == (snapshot.data.toInt() - 1) ||
+                                      index == (snapshot.data.toInt() + 1)
+                                  ? Colors.grey[600]
+                                  : Colors.grey[300]),
+                    ),
+                  ),
+                ),
+              ),
+      ),
+    );
   }
 }
