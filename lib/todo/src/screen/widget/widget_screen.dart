@@ -5,6 +5,7 @@ import 'slider/review_slider.dart';
 import 'progress_indicator/custom_liquid_progress_indicator.dart';
 import 'progress_indicator/custom/example.dart';
 import 'listview/animated_listview_screen.dart';
+import 'animation/particle_animation/particles.dart';
 
 class WidgetScreen extends StatelessWidget {
   static const routeName = '/widget_screen';
@@ -31,6 +32,7 @@ class WidgetScreen extends StatelessWidget {
           card(context, CustomLiquidProgressIndicator.routeName),
           card(context, Example.routeName),
           card(context, AnimatedListViewScreen.routeName),
+          card(context, Particles.routeName),
         ],
       ),
     );

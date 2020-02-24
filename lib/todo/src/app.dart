@@ -28,6 +28,7 @@ import 'screen/widget/slider/review_slider.dart';
 import 'screen/widget/progress_indicator/custom_liquid_progress_indicator.dart';
 import 'screen/widget/progress_indicator/custom/example.dart';
 import 'screen/widget/listview/animated_listview_screen.dart';
+import 'screen/widget/animation/particle_animation/particles.dart';
 
 import 'screen/tb/tb_screen.dart';
 import 'screen/tb/kehamilan/kehamilan_screen.dart';
@@ -129,6 +130,9 @@ class App extends StatelessWidget {
         break;
       case TemaScreen.routeName:
         return MaterialPageRoute(builder: (_) => TemaScreen());
+        break;
+      case Particles.routeName:
+        return MaterialPageRoute(builder: (_) => Particles(30));
         break;
       default:
         MaterialPageRoute(builder: (_) => pageNotFound());
