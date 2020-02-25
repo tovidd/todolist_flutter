@@ -10,14 +10,14 @@ class ParticleModel {
   Random random;
 
   ParticleModel(this.random) {
-    restart(time: Duration(seconds: 0));
+    restart(time: Duration(seconds: 3));
   }
 
   restart({Duration time = Duration.zero}) {
     final startPosition = Offset(-0.2 + 1.4 * random.nextDouble(),
         (random.nextInt(5) + 1).toDouble() * -0.2);
     final endPosition = Offset(-0.2 + 1.4 * random.nextDouble(), 0.3);
-    final duration = Duration(milliseconds: 10000 + random.nextInt(1000));
+    final duration = Duration(milliseconds: 7000 + random.nextInt(12000));
 
     tween = MultiTrackTween([
       Track("x").add(

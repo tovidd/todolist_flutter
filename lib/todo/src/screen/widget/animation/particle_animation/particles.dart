@@ -37,6 +37,15 @@ class _ParticlesState extends State<Particles> {
       body: SafeArea(
         child: buildBody(context, size),
       ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        backgroundColor: primaryColor,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.add), title: Text('')),
+          BottomNavigationBarItem(icon: Icon(Icons.check), title: Text('')),
+          BottomNavigationBarItem(icon: Icon(Icons.settings), title: Text('')),
+        ],
+      ),
       backgroundColor: Colors.white,
     );
   }
@@ -70,7 +79,8 @@ class _ParticlesState extends State<Particles> {
           ],
         ),
         Positioned(
-          bottom: 0,
+          width: size.width,
+          bottom: 20,
           child: Column(
             children: <Widget>[
               Image.asset(
@@ -85,11 +95,6 @@ class _ParticlesState extends State<Particles> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(height: 100),
-              Container(
-                width: size.width,
-                height: 70,
-                color: primaryColor,
-              ),
             ],
           ),
         ),
@@ -99,6 +104,7 @@ class _ParticlesState extends State<Particles> {
           child: Rendering(
             startTime: Duration(seconds: 10),
             onTick: _simulateParticles,
+            startTimeSimulationTicks: 1,
             builder: (context, time) {
               return ParticleItem(particles, time);
             },

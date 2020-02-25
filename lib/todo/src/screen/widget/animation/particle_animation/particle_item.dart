@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart' show rootBundle;
@@ -35,6 +37,10 @@ class ImagePainter extends StatefulWidget {
 
   @override
   _ImagePainterState createState() => _ImagePainterState();
+
+  init() {
+    createState().initState();
+  }
 }
 
 class _ImagePainterState extends State<ImagePainter> {
@@ -47,7 +53,7 @@ class _ImagePainterState extends State<ImagePainter> {
   }
 
   Future<Null> init() async {
-    final ByteData data = await rootBundle.load('assets/ic_smile_32px.png');
+    final ByteData data = await rootBundle.load(randomImage());
     image = await loadImage(Uint8List.view(data.buffer));
   }
 
@@ -60,6 +66,20 @@ class _ImagePainterState extends State<ImagePainter> {
       return completer.complete(img);
     });
     return completer.future;
+  }
+
+  String randomImage() {
+    int random = Random().nextInt(3);
+    String imagePath = 'assets/ic_smile_64px.png';
+    print('Random');
+    print(random);
+
+    if (random == 0) {
+      imagePath = 'assets/ic_smile_32px.png';
+    } else if (random == 1) {
+      imagePath = 'assets/ic_smile_48px.png';
+    }
+    return imagePath;
   }
 
   Widget _buildImage() {
@@ -115,7 +135,7 @@ class ImageEditor extends CustomPainter {
           paint.color = Color.fromRGBO(0, 0, 0, 0.80);
         }
       }
-
+      canvas.scale(1.015);
       canvas.drawImage(image, position, paint);
     });
   }
