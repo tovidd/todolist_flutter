@@ -181,44 +181,6 @@ class KehamilanScreen extends StatelessWidget {
       );
     }
 
-    Widget slider() {
-      return Column(
-        children: <Widget>[
-          StreamBuilder(
-            stream: bloc.sliderValue,
-            builder: (context, snapshot) {
-              return Column(
-                children: <Widget>[
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Slider(
-                      activeColor: Colors.indigoAccent,
-                      min: 0.0,
-                      max: 36.0,
-                      onChanged: (val) {
-                        bloc.addSliderValue(val);
-                      },
-                      value: !snapshot.hasData ? 0.0 : snapshot.data,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text('0'),
-                      Text('36'),
-                    ],
-                  ),
-                ],
-              );
-            },
-          ),
-          SizedBox(
-            height: 50,
-          )
-        ],
-      );
-    }
-
     Widget heart() {
       return Container(
         child: _AnimatedLiquidCustomProgressIndicator(
@@ -509,18 +471,6 @@ class _AnimatedLiquidCustomProgressIndicatorState
                     backgroundColor: Colors.transparent,
                     valueColor: AlwaysStoppedAnimation(Color(0xFFF8798A)),
                     shapePath: _buildHeartPath(),
-                    center: Stack(
-                      children: <Widget>[
-                        Center(child: Text(snapshot.data.toStringAsFixed(0))),
-                        Center(
-                          child: Image.asset(
-                            'assets/ic_heart.png',
-                            color: Colors.white,
-                            width: 99,
-                          ),
-                        ),
-                      ],
-                    ),
                   ),
                 ],
               );
@@ -542,6 +492,24 @@ class _AnimatedLiquidCustomProgressIndicatorState
       ..cubicTo(65, 0, 55, 12, 55, 15)
       ..close();
   }
+
+  // heart
+  Path _buildHeartPath2() {
+    return Path()
+      ..moveTo(50, 45)
+      ..cubicTo(20, 10, -45, 60, 50, 125)
+      ..moveTo(50, 45)
+      ..cubicTo(80, 10, 145, 60, 50, 125);
+  }
+
+  // heart stroke
+  Path _buildHeartStrokeBound() {
+    return Path()
+      ..moveTo(50, 58)
+      ..cubicTo(33, 10, -43, 60, 50, 117)
+      ..moveTo(50, 58)
+      ..cubicTo(67, 10, 143, 60, 50, 117);
+  }
 }
 
 class Carroussel extends StatelessWidget {
@@ -557,34 +525,33 @@ class Carroussel extends StatelessWidget {
   Widget build(BuildContext context) {
     double _viewportFraction = 1 / 6;
     return StreamBuilder(
-        stream: this.bloc.sliderValue,
-        builder: (context, AsyncSnapshot<double> snapshot) {
-          pageController = PageController(
-            initialPage: snapshot.data.toInt(),
-            keepPage: true,
-            viewportFraction: _viewportFraction,
-          );
+      stream: this.bloc.sliderValue,
+      builder: (context, AsyncSnapshot<double> snapshot) {
+        pageController = PageController(
+          initialPage: snapshot.data.toInt(),
+          keepPage: true,
+          viewportFraction: _viewportFraction,
+        );
 
-          return Center(
-            child: Container(
-              color: Colors.transparent,
-              child: PageView.builder(
-                itemCount: 36,
-                onPageChanged: (value) {
-                  this.bloc.addSliderValue(value.toDouble());
-                },
-                controller: pageController,
-                itemBuilder: (context, index) => angka(index, snapshot),
-                physics: ScrollPhysics(),
-              ),
+        return Center(
+          child: Container(
+            color: Colors.transparent,
+            child: PageView.builder(
+              itemCount: 36,
+              onPageChanged: (value) {
+                this.bloc.addSliderValue(value.toDouble());
+              },
+              controller: pageController,
+              itemBuilder: (context, index) => angka(index, snapshot),
+              physics: ScrollPhysics(),
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   angka(int index, AsyncSnapshot<double> snapshot) {
-//    pageController.animateToPage(currentpage,
-//        duration: Duration(milliseconds: 500), curve: Curves.easeOut);
     return AnimatedBuilder(
       animation: pageController,
       builder: (context, child) {

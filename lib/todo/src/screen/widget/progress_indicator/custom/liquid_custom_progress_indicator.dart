@@ -41,6 +41,7 @@ class _LiquidCustomProgressIndicatorState
   @override
   Widget build(BuildContext context) {
     final pathBounds = widget.shapePath.getBounds();
+
     return SizedBox(
       width: pathBounds.width + pathBounds.left,
       height: pathBounds.height + pathBounds.top,
@@ -77,12 +78,15 @@ class _CustomPathPainter extends CustomPainter {
   final Color color;
   final Path path;
 
-  _CustomPathPainter({@required this.color, @required this.path});
+  _CustomPathPainter({
+    @required this.color,
+    @required this.path,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = color; // background color
-    canvas.drawPath(path, paint);
+    final heartPaint = Paint()..color = color; // background color
+    canvas.drawPath(path, heartPaint);
   }
 
   @override

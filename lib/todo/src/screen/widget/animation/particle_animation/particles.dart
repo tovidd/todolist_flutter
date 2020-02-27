@@ -1,10 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:simple_animations/simple_animations.dart';
-import 'package:todolist/todo/src/screen/widget/animation/particle_animation/particle_item.dart';
 
+import 'particle_painter.dart';
 import 'particle_model.dart';
-//import 'particle_painter.dart';
 
 class Particles extends StatefulWidget {
   static const routeName = '/particles';
@@ -37,66 +36,16 @@ class _ParticlesState extends State<Particles> {
       body: SafeArea(
         child: buildBody(context, size),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        backgroundColor: primaryColor,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.add), title: Text('')),
-          BottomNavigationBarItem(icon: Icon(Icons.check), title: Text('')),
-          BottomNavigationBarItem(icon: Icon(Icons.settings), title: Text('')),
-        ],
-      ),
-      backgroundColor: Colors.white,
     );
   }
 
   Widget buildBody(BuildContext context, Size size) {
     return Stack(
       children: <Widget>[
-        Stack(
-          children: <Widget>[
-            Column(
-              children: <Widget>[
-                Container(
-                  height: 50,
-                  width: size.width,
-                  color: primaryColor,
-                ),
-                CurvePaint(),
-              ],
-            ),
-            Positioned.fill(
-              top: 40,
-              child: Column(
-                children: <Widget>[
-                  Image.asset(
-                    'assets/ic_tb.png',
-                    height: 60,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        Positioned(
+        Container(
+          height: size.height,
           width: size.width,
-          bottom: 20,
-          child: Column(
-            children: <Widget>[
-              Image.asset(
-                'assets/ic_smile.png',
-                height: 200,
-              ),
-              SizedBox(height: 40),
-              Text(
-                'Yeay data Mums telah tersimpan!\nPantau terus aplikasi Teman Bumil\nini Mums untuk mengetahui\ninformasi-informasi penting!',
-                style: TextStyle(
-                    color: Colors.deepPurple.withOpacity(0.5), fontSize: 20),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(height: 100),
-            ],
-          ),
+          color: Colors.black,
         ),
         Container(
           height: size.height,
@@ -106,7 +55,9 @@ class _ParticlesState extends State<Particles> {
             onTick: _simulateParticles,
             startTimeSimulationTicks: 1,
             builder: (context, time) {
-              return ParticleItem(particles, time);
+              return CustomPaint(
+                painter: ParticlePainter(particles, time),
+              );
             },
           ),
         ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'kehamilan/kehamilan_screen.dart';
 import 'tema/tema_screen.dart';
+import 'onboarding/onboarding_complete/onboarding_complete_screen.dart';
 
 class TBScreen extends StatelessWidget {
   static const routeName = '/tb_screen';
@@ -24,7 +25,8 @@ class TBScreen extends StatelessWidget {
         padding: EdgeInsets.all(16),
         children: <Widget>[
           card(context, KehamilanScreen.routeName),
-          card(context, TemaScreen.routeName)
+          card(context, TemaScreen.routeName),
+          card(context, OnboardingCompleteScreen.routeName),
         ],
       ),
     );

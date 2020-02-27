@@ -6,6 +6,7 @@ import 'progress_indicator/custom_liquid_progress_indicator.dart';
 import 'progress_indicator/custom/example.dart';
 import 'listview/animated_listview_screen.dart';
 import 'animation/particle_animation/particles.dart';
+import 'progress_indicator/masking_gif.dart';
 
 class WidgetScreen extends StatelessWidget {
   static const routeName = '/widget_screen';
@@ -33,6 +34,7 @@ class WidgetScreen extends StatelessWidget {
           card(context, Example.routeName),
           card(context, AnimatedListViewScreen.routeName),
           card(context, Particles.routeName),
+          card(context, MaskingGif.routeName)
         ],
       ),
     );

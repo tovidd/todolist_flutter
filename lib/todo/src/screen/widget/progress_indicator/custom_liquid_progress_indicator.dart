@@ -1,37 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_progress_indicator/liquid_progress_indicator.dart';
-
-class CustomLiquidProgressIndicator2 extends StatelessWidget {
-  static const routeName = '/custom_liquid_progress_indicator';
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Masking'),
-      ),
-      body: buildBody(),
-      backgroundColor: Colors.yellow,
-    );
-  }
-
-  Widget buildBody() {
-    return Container(
-      margin: EdgeInsets.only(top: 100),
-      child: ShaderMask(
-        child: Image.asset('assets/ic_bird.gif'),
-        shaderCallback: (Rect bounds) {
-          return LinearGradient(
-            colors: [Colors.blue, Colors.redAccent, Colors.deepPurpleAccent],
-            stops: [0.0, 0.4, 0.7],
-          ).createShader(bounds);
-        },
-        blendMode: BlendMode.srcATop,
-      ),
-    );
-  }
-}
+import 'custom/liquid_progress_indicator.dart';
 
 class CustomLiquidProgressIndicator extends StatelessWidget {
   static const routeName = '/custom_liquid_progress_indicator';
@@ -141,9 +110,10 @@ class _AnimatedLiquidCustomProgressIndicatorState
                   center: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [Color(0xFF9DB7ED), Color(0xFFB68DC3)]),
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Color(0xFF9DB7ED), Color(0xFFB68DC3)],
+                      ),
                     ),
                   ),
                 ),
@@ -184,11 +154,17 @@ class _AnimatedLiquidCustomProgressIndicatorState
                 ),
               ),
               LiquidCustomProgressIndicator(
-                value: 0.1,
+                value: _animationController.value,
                 direction: Axis.vertical,
                 backgroundColor: Colors.transparent,
                 valueColor: AlwaysStoppedAnimation(Color(0xFFF8798A)),
-                shapePath: _buildHeartPath2(),
+                shapePath: _buildHeartStrokeBound(),
+              ),
+              CustomPaint(
+                painter: HeartStrokePainter(
+                  path: _buildHeartStrokeBound(),
+                  color: Colors.white,
+                ),
               ),
             ],
           ),
@@ -198,20 +174,6 @@ class _AnimatedLiquidCustomProgressIndicatorState
   }
 
   Path _buildHeartPath() {
-    const double x = 100;
-    return Path()
-      ..moveTo(x, 30)
-      ..cubicTo(x, 20, 80, 0, 60, 0)
-      ..cubicTo(0, 0, 0, 50, 0, 50)
-      ..cubicTo(0, 65, -30, 60, x, 180)
-      //
-      ..cubicTo(200, 120, x * 2, 65, x * 2, 50)
-      ..cubicTo(x * 2, 50, x * 2, 0, 160, 0)
-      ..cubicTo(140, 0, 120, 0, 120, 20)
-      ..close();
-  }
-
-  Path _buildHeartPath2() {
     return Path()
       ..moveTo(55, 15)
       ..cubicTo(55, 12, 50, 0, 30, 0)
@@ -222,4 +184,43 @@ class _AnimatedLiquidCustomProgressIndicatorState
       ..cubicTo(65, 0, 55, 12, 55, 15)
       ..close();
   }
+
+  // heart
+  Path _buildHeartPath2() {
+    return Path()
+      ..moveTo(50, 45)
+      ..cubicTo(20, 10, -45, 60, 50, 125)
+      ..moveTo(50, 45)
+      ..cubicTo(80, 10, 145, 60, 50, 125);
+  }
+
+  // heart stroke
+  Path _buildHeartStrokeBound() {
+    return Path()
+      ..moveTo(50, 58)
+      ..cubicTo(33, 10, -43, 60, 50, 117)
+      ..moveTo(50, 58)
+      ..cubicTo(67, 10, 143, 60, 50, 117);
+  }
+}
+
+class HeartStrokePainter extends CustomPainter {
+  Path path;
+  Color color;
+
+  HeartStrokePainter({this.path, this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint();
+    paint
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 1;
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

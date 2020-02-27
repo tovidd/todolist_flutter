@@ -37,10 +37,6 @@ class ImagePainter extends StatefulWidget {
 
   @override
   _ImagePainterState createState() => _ImagePainterState();
-
-  init() {
-    createState().initState();
-  }
 }
 
 class _ImagePainterState extends State<ImagePainter> {
@@ -69,16 +65,9 @@ class _ImagePainterState extends State<ImagePainter> {
   }
 
   String randomImage() {
-    int random = Random().nextInt(3);
-    String imagePath = 'assets/ic_smile_64px.png';
-    print('Random');
-    print(random);
+//    int random = Random().nextInt(3);
+    String imagePath = 'assets/ic_smile_48px.png';
 
-    if (random == 0) {
-      imagePath = 'assets/ic_smile_32px.png';
-    } else if (random == 1) {
-      imagePath = 'assets/ic_smile_48px.png';
-    }
     return imagePath;
   }
 

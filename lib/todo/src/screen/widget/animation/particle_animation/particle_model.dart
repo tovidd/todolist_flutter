@@ -16,7 +16,7 @@ class ParticleModel {
   restart({Duration time = Duration.zero}) {
     final startPosition = Offset(-0.2 + 1.4 * random.nextDouble(),
         (random.nextInt(5) + 1).toDouble() * -0.2);
-    final endPosition = Offset(-0.2 + 1.4 * random.nextDouble(), 0.3);
+    final endPosition = Offset(-0.2 + 1.4 * random.nextDouble(), 1);
     final duration = Duration(milliseconds: 7000 + random.nextInt(12000));
 
     tween = MultiTrackTween([
