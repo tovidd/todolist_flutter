@@ -134,7 +134,7 @@ class _ReviewSliderState extends State<ReviewSlider>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Review Slider'),
+        title: Text(ReviewSlider.routeName),
       ),
       body: buildBody(context),
     );

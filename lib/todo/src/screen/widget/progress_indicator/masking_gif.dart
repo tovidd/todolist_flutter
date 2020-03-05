@@ -7,7 +7,7 @@ class MaskingGif extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Masking'),
+        title: Text(MaskingGif.routeName),
       ),
       body: buildBody(),
       backgroundColor: Colors.yellow,
@@ -18,7 +18,7 @@ class MaskingGif extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(top: 100),
       child: ShaderMask(
-        child: Image.asset('assets/ic_bird.gif'),
+        child: Image.asset('assets/image/ic_bird.gif'),
         shaderCallback: (Rect bounds) {
           return LinearGradient(
             colors: [Colors.blue, Colors.redAccent, Colors.deepPurpleAccent],

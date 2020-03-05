@@ -17,7 +17,7 @@ class KehamilanBloc {
   Function(double) get addSliderValue => _sliderValue.sink.add;
 
   reset() {
-    addSliderValue(30.0);
+    addSliderValue(20.0);
   }
 
   dispose() {

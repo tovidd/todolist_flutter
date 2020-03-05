@@ -1,95 +1,92 @@
 // // {
-// // "status": "success", 
-// // "message": "", 
+// // "status": "success",
+// // "message": "",
 // // "data": [{
-// //     "id": 1, 
+// //     "id": 1,
 // //     "title": "Beli persiapan lomba",
-// //     "description": "Beli tali, karton, triplek, bambu, buku gambar, dan pulpen", 
-// //     "created_at": "2010-01-30 07:30:00", 
-// //     "deadline_at": "2010-02-05 13:30:00", 
-// //     "deleted_at": null, 
-// //     "done_at": null, 
+// //     "description": "Beli tali, karton, triplek, bambu, buku gambar, dan pulpen",
+// //     "created_at": "2010-01-30 07:30:00",
+// //     "deadline_at": "2010-02-05 13:30:00",
+// //     "deleted_at": null,
+// //     "done_at": null,
 // //     "undone_at": null
-// // }, 
+// // },
 // // {
-// //     "id": 2, 
+// //     "id": 2,
 // //     "title": "Pergi ke rumah tante",
-// //     "description": "Jangan lupa bawa kue pesanan tante di pasar", 
-// //     "created_at": "2010-01-30 09:30:00", 
-// //     "deadline_at": "2010-02-05 18:30:00", 
-// //     "deleted_at": null, 
-// //     "done_at": null, 
+// //     "description": "Jangan lupa bawa kue pesanan tante di pasar",
+// //     "created_at": "2010-01-30 09:30:00",
+// //     "deadline_at": "2010-02-05 18:30:00",
+// //     "deleted_at": null,
+// //     "done_at": null,
 // //     "undone_at": null
-// // }, 
+// // },
 // // {
-// //     "id": 3, 
+// //     "id": 3,
 // //     "title": "Daftar pengabdian",
-// //     "description": "Syarat fotokopi ktp 1 lembar, transkrip nilai 2 lembar legalisir, dan surat rekomendasi kampus", 
-// //     "created_at": "2010-01-30 17:30:00", 
-// //     "deadline_at": "2010-02-05 07:30:00", 
-// //     "deleted_at": null, 
-// //     "done_at": null, 
+// //     "description": "Syarat fotokopi ktp 1 lembar, transkrip nilai 2 lembar legalisir, dan surat rekomendasi kampus",
+// //     "created_at": "2010-01-30 17:30:00",
+// //     "deadline_at": "2010-02-05 07:30:00",
+// //     "deleted_at": null,
+// //     "done_at": null,
 // //     "undone_at": null
-// // }, 
+// // },
 // // {
-// //     "id": 4, 
+// //     "id": 4,
 // //     "title": "Bikin PR Biologi",
-// //     "description": "Halaman 176 Nomor 1-50, dikumpul besok pagi", 
-// //     "created_at": "2010-01-30 20:30:00", 
-// //     "deadline_at": "2010-02-01 09:30:00", 
-// //     "deleted_at": null, 
-// //     "done_at": null, 
+// //     "description": "Halaman 176 Nomor 1-50, dikumpul besok pagi",
+// //     "created_at": "2010-01-30 20:30:00",
+// //     "deadline_at": "2010-02-01 09:30:00",
+// //     "deleted_at": null,
+// //     "done_at": null,
 // //     "undone_at": null
-// // }, 
+// // },
 // // {
-// //     "id": 5, 
+// //     "id": 5,
 // //     "title": "Sertifikat taekwondo",
-// //     "description": "Desain sertifikat dan minta approve dari pak pur. Print 100 lembar kertas ivory 260", 
-// //     "created_at": "2010-02-15 08:30:00", 
-// //     "deadline_at": "2010-02-27 23:30:00", 
-// //     "deleted_at": null, 
-// //     "done_at": null, 
+// //     "description": "Desain sertifikat dan minta approve dari pak pur. Print 100 lembar kertas ivory 260",
+// //     "created_at": "2010-02-15 08:30:00",
+// //     "deadline_at": "2010-02-27 23:30:00",
+// //     "deleted_at": null,
+// //     "done_at": null,
 // //     "undone_at": null
-// // }, 
+// // },
 // // {
-// //     "id": 6, 
+// //     "id": 6,
 // //     "title": "HP Samsung",
-// //     "description": "Beli hape baru di gue sehat, lagi diskon 100%, cashback 100% pakai ovo", 
-// //     "created_at": "2010-03-05 12:30:00", 
-// //     "deadline_at": "2010-04-05 17:30:00", 
-// //     "deleted_at": null, 
-// //     "done_at": null, 
+// //     "description": "Beli hape baru di gue sehat, lagi diskon 100%, cashback 100% pakai ovo",
+// //     "created_at": "2010-03-05 12:30:00",
+// //     "deadline_at": "2010-04-05 17:30:00",
+// //     "deleted_at": null,
+// //     "done_at": null,
 // //     "undone_at": null
-// // }, 
+// // },
 // // {
-// //     "id": 7, 
+// //     "id": 7,
 // //     "title": "Futsal",
-// //     "description": "Anak kelas 7D ajak main bola di lapangan Soekarno Hatta", 
-// //     "created_at": "2010-05-06 07:30:00", 
-// //     "deadline_at": "2010-05-09 08:30:00", 
-// //     "deleted_at": null, 
-// //     "done_at": null, 
+// //     "description": "Anak kelas 7D ajak main bola di lapangan Soekarno Hatta",
+// //     "created_at": "2010-05-06 07:30:00",
+// //     "deadline_at": "2010-05-09 08:30:00",
+// //     "deleted_at": null,
+// //     "done_at": null,
 // //     "undone_at": null
-// // }, 
+// // },
 // // {
-// //     "id": 8, 
+// //     "id": 8,
 // //     "title": "Matahari",
-// //     "description": "Lagi ada diskon jaket, murah, jangan lupa dibeli", 
-// //     "created_at": "2010-06-05 14:30:00", 
-// //     "deadline_at": "2010-06-05 10:30:00", 
-// //     "deleted_at": null, 
-// //     "done_at": null, 
+// //     "description": "Lagi ada diskon jaket, murah, jangan lupa dibeli",
+// //     "created_at": "2010-06-05 14:30:00",
+// //     "deadline_at": "2010-06-05 10:30:00",
+// //     "deleted_at": null,
+// //     "done_at": null,
 // //     "undone_at": null
 // // }
-
-
 
 // // ]
 // // }
 
-
 // import 'package:flutter/material.dart';
- 
+
 // class ChangePasswordScreen extends StatelessWidget {
 //   @override
 //   Widget build(BuildContext context) {
@@ -108,18 +105,18 @@
 //     );
 //   }
 // }
- 
+
 // // Welcome to another flutter tutorial
 // // In this video we will see how to create a multi-level Expansion List
 // // First Let's create a class for each row in the Expansion List
- 
+
 // class Entry {
 //   final String title;
 //   final List<Entry>
 //       children; // Since this is an expansion list ...children can be another list of entries
 //   Entry(this.title, [this.children = const <Entry>[]]);
 // }
- 
+
 // // This is the entire multi-level list displayed by this app
 // final List<Entry> data = <Entry>[
 //   Entry(
@@ -159,12 +156,12 @@
 //     ],
 //   ),
 // ];
- 
+
 // // Create the Widget for the row
 // class EntryItem extends StatelessWidget {
 //   const EntryItem(this.entry);
 //   final Entry entry;
- 
+
 //   // This function recursively creates the multi-level list rows.
 //   Widget _buildTiles(Entry root) {
 //     if (root.children.isEmpty) {
@@ -178,26 +175,15 @@
 //       children: root.children.map<Widget>(_buildTiles).toList(),
 //     );
 //   }
- 
+
 //   @override
 //   Widget build(BuildContext context) {
 //     return _buildTiles(entry);
 //   }
 // }
 
-
-
-
-
-
-
-
-
-
-
 // // Kartu bank
 // import 'package:flutter/material.dart';
-
 
 // class ChangePasswordScreen extends StatefulWidget {
 //   ChangePasswordScreen({Key key}) : super(key: key);
@@ -306,9 +292,8 @@
 //           ),
 //         ));
 //         }).values.toList()
-//       );    
+//       );
 //   }
-
 
 //   Widget buildExpand(List<Widget> items){
 //     return SingleChildScrollView(
@@ -317,7 +302,6 @@
 //       ),
 //     );
 //   }
-
 
 //   Widget cardReds(int number){
 //     return cardItem(
@@ -370,7 +354,7 @@
 //             alignment: Alignment.bottomCenter,
 //             margin: EdgeInsets.only(top: 42),
 //             child: ImageIcon(
-//               AssetImage("assets/ic_facebook.png"),
+//               AssetImage("assets/image/ic_facebook.png"),
 //               color: Colors.white.withOpacity(0.6),
 //               size: size.width,
 //             ),
@@ -440,7 +424,7 @@
 //                     ),
 //                   ),
 //                   ImageIcon(
-//                     AssetImage("assets/ic_google.png"),
+//                     AssetImage("assets/image/ic_google.png"),
 //                     color: Colors.white.withOpacity(0.85),
 //                     size: 14,
 //                   ),
@@ -492,6 +476,5 @@
 //       )
 //     );
 //   }
-
 
 // }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/todo/src/resource/image_assets.dart';
 
 import '../../screen/setting/change_password/change_password_screen.dart';
 import '../../screen/setting/privacy_policy/privacy_policy_screen.dart';
@@ -19,10 +20,7 @@ class SettingScreen extends StatelessWidget {
             SliverAppBar(
               backgroundColor: Colors.black,
               leading: IconButton(
-                icon: Icon(
-                  Icons.close,
-                  color: Colors.redAccent,
-                ),
+                icon: Icon(Icons.close, color: Colors.redAccent),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -44,9 +42,7 @@ class SettingScreen extends StatelessWidget {
                     ),
                     Text(
                       'Update Your Preferences',
-                      style: TextStyle(
-                        fontSize: 12.0,
-                      ),
+                      style: TextStyle(fontSize: 12.0),
                     ),
                   ],
                 ),
@@ -77,12 +73,8 @@ class SettingScreen extends StatelessWidget {
               context,
               'Profile Information',
               'Name, Email, Security',
-              'assets/ic_user.png',
-              Icon(
-                null,
-                size: 25,
-                color: Colors.blue,
-              ),
+              ImageAsset().ic_user(),
+              Icon(null, size: 25, color: Colors.blue),
               Colors.blue[50]),
         ),
         GestureDetector(
@@ -94,11 +86,7 @@ class SettingScreen extends StatelessWidget {
               'Change Password',
               'Change Your Current Password',
               null,
-              Icon(
-                Icons.lock,
-                size: 25,
-                color: Colors.orange,
-              ),
+              Icon(Icons.lock, size: 25, color: Colors.orange),
               Colors.orange[50]),
         ),
         setting_title(context, 'Notifications Setting', Colors.grey),
@@ -111,11 +99,8 @@ class SettingScreen extends StatelessWidget {
               'Push Notifications',
               'New Contract Sign Or Send',
               null,
-              Icon(
-                Icons.notifications,
-                size: 25,
-                color: Colors.tealAccent[400],
-              ),
+              Icon(Icons.notifications,
+                  size: 25, color: Colors.tealAccent[400]),
               Colors.lightGreen[50]),
         ),
         setting_title(context, 'General', Colors.grey),
@@ -131,11 +116,7 @@ class SettingScreen extends StatelessWidget {
               'Rate Our App',
               'Rate & Review Us',
               null,
-              Icon(
-                Icons.favorite,
-                size: 25,
-                color: Colors.red,
-              ),
+              Icon(Icons.favorite, size: 25, color: Colors.red),
               Colors.red[50]),
         ),
         GestureDetector(
@@ -143,7 +124,7 @@ class SettingScreen extends StatelessWidget {
             Navigator.pushNamed(context, SendFeedbackScreen.routeName);
           },
           child: setting_content(context, 'Send Feedback', 'Share Your Thought',
-              'assets/ic_mail.png', Icon(null, size: 25), Colors.green[50]),
+              ImageAsset().ic_mail(), Icon(null, size: 25), Colors.green[50]),
         ),
         GestureDetector(
           onTap: () {
@@ -154,11 +135,7 @@ class SettingScreen extends StatelessWidget {
               'Privacy Policy',
               'Read Privacy Policy',
               null,
-              Icon(
-                Icons.visibility_off,
-                size: 25,
-                color: Colors.black,
-              ),
+              Icon(Icons.visibility_off, size: 25, color: Colors.black),
               Colors.black12),
         ),
         setting_title(context, 'Connected App(s)', Colors.grey),
@@ -166,14 +143,11 @@ class SettingScreen extends StatelessWidget {
             context,
             'Connected With Facebook',
             'Tap To Manage',
-            'assets/ic_facebook.png',
-            Icon(
-              null,
-              size: 25,
-            ),
+            ImageAsset().ic_facebook(),
+            Icon(null, size: 25),
             Colors.lightBlue[50]),
         setting_content(context, 'Connected With Google', 'Tap To Manage',
-            'assets/ic_google.png', Icon(null, size: 25), Colors.white),
+            ImageAsset().ic_google(), Icon(null, size: 25), Colors.white),
       ],
       padding: EdgeInsets.all(10),
     );

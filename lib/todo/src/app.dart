@@ -30,6 +30,10 @@ import 'screen/widget/progress_indicator/custom/example.dart';
 import 'screen/widget/listview/animated_listview_screen.dart';
 import 'screen/widget/animation/particle_animation/particles.dart';
 import 'screen/widget/progress_indicator/masking_gif.dart';
+import 'screen/widget/picker/cupertino_date_picker/cupertino_date_picker_screen.dart';
+import 'screen/widget/animation/scale_transition/scale_transition_screen.dart';
+import 'screen/widget/asset_read/asset_text.dart';
+import 'screen/widget/slider/balloon_slider/balloon_slider_screen.dart';
 
 import 'screen/tb/tb_screen.dart';
 import 'screen/tb/kehamilan/kehamilan_screen.dart';
@@ -141,6 +145,18 @@ class App extends StatelessWidget {
         break;
       case MaskingGif.routeName:
         return MaterialPageRoute(builder: (_) => MaskingGif());
+        break;
+      case CupertinoDatePickerScreen.routeName:
+        return MaterialPageRoute(builder: (_) => CupertinoDatePickerScreen());
+        break;
+      case ScaleTransitionScreen.routeName:
+        return MaterialPageRoute(builder: (_) => ScaleTransitionScreen());
+        break;
+      case AssetText.routeName:
+        return MaterialPageRoute(builder: (_) => AssetText());
+        break;
+      case BalloonSliderScreen.routeName:
+        return MaterialPageRoute(builder: (_) => BalloonSliderScreen());
         break;
       default:
         MaterialPageRoute(builder: (_) => pageNotFound());

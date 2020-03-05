@@ -33,6 +33,9 @@ class _ParticlesState extends State<Particles> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        title: Text(Particles.routeName),
+      ),
       body: SafeArea(
         child: buildBody(context, size),
       ),

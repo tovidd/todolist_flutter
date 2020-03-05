@@ -7,6 +7,10 @@ import 'progress_indicator/custom/example.dart';
 import 'listview/animated_listview_screen.dart';
 import 'animation/particle_animation/particles.dart';
 import 'progress_indicator/masking_gif.dart';
+import 'picker/cupertino_date_picker/cupertino_date_picker_screen.dart';
+import 'animation/scale_transition/scale_transition_screen.dart';
+import 'asset_read/asset_text.dart';
+import 'slider/balloon_slider/balloon_slider_screen.dart';
 
 class WidgetScreen extends StatelessWidget {
   static const routeName = '/widget_screen';
@@ -34,7 +38,11 @@ class WidgetScreen extends StatelessWidget {
           card(context, Example.routeName),
           card(context, AnimatedListViewScreen.routeName),
           card(context, Particles.routeName),
-          card(context, MaskingGif.routeName)
+          card(context, MaskingGif.routeName),
+          card(context, CupertinoDatePickerScreen.routeName),
+          card(context, ScaleTransitionScreen.routeName),
+          card(context, AssetText.routeName),
+          card(context, BalloonSliderScreen.routeName),
         ],
       ),
     );

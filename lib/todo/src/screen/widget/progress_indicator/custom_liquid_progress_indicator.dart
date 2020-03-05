@@ -9,7 +9,7 @@ class CustomLiquidProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Liquid Custom Progress Indicators"),
+        title: Text(CustomLiquidProgressIndicator.routeName),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -184,7 +184,7 @@ class KehamilanScreen extends StatelessWidget {
     Widget heart() {
       return Container(
         child: _AnimatedLiquidCustomProgressIndicator(
-          max: 36.0,
+          max: 40.0,
         ),
       );
     }
@@ -445,35 +445,38 @@ class _AnimatedLiquidCustomProgressIndicatorState
         children: <Widget>[
           StreamBuilder(
             stream: bloc.sliderValue,
-            builder: (context, snapshot) {
-              return Stack(
-                children: <Widget>[
-                  LiquidCustomProgressIndicator(
-                    direction: Axis.vertical,
-                    backgroundColor: Colors.transparent,
-                    shapePath: _buildHeartPath(),
-                    center: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            Color(0xFF9DB7ED),
-                            Color(0xFFB68DC3),
-                          ],
+            builder: (context, AsyncSnapshot<double> snapshot) {
+              if (snapshot.hasData) {
+                return Stack(
+                  children: <Widget>[
+                    LiquidCustomProgressIndicator(
+                      direction: Axis.vertical,
+                      backgroundColor: Colors.blue,
+                      shapePath: _buildHeartPath(),
+                      center: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0xFF9DB7ED),
+                              Color(0xFFB68DC3),
+                            ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  LiquidCustomProgressIndicator(
-                    value: snapshot.data / this.widget.max,
-                    direction: Axis.vertical,
-                    backgroundColor: Colors.transparent,
-                    valueColor: AlwaysStoppedAnimation(Color(0xFFF8798A)),
-                    shapePath: _buildHeartPath(),
-                  ),
-                ],
-              );
+                    LiquidCustomProgressIndicator(
+                      value: (snapshot.data / this.widget.max) - 0.20,
+                      direction: Axis.vertical,
+                      backgroundColor: Colors.transparent,
+                      valueColor: AlwaysStoppedAnimation(Color(0xFFF8798A)),
+                      shapePath: _buildHeartStrokeBound(),
+                    ),
+                  ],
+                );
+              }
+              return Container();
             },
           ),
         ],
@@ -481,25 +484,26 @@ class _AnimatedLiquidCustomProgressIndicatorState
     );
   }
 
-  Path _buildHeartPath() {
-    return Path()
-      ..moveTo(55, 15)
-      ..cubicTo(55, 12, 50, 0, 30, 0)
-      ..cubicTo(0, 0, 0, 37.5, 0, 37.5)
-      ..cubicTo(0, 55, 20, 77, 55, 95)
-      ..cubicTo(90, 77, 110, 55, 110, 37.5)
-      ..cubicTo(110, 37.5, 110, 0, 80, 0)
-      ..cubicTo(65, 0, 55, 12, 55, 15)
-      ..close();
-  }
+//  Path _buildHeartPath2() {
+//    return Path()
+//      ..moveTo(55, 15)
+//      ..cubicTo(55, 12, 50, 0, 30, 0)
+//      ..cubicTo(0, 0, 0, 37.5, 0, 37.5)
+//      ..cubicTo(0, 55, 20, 77, 55, 95)
+//      ..cubicTo(90, 77, 110, 55, 110, 37.5)
+//      ..cubicTo(110, 37.5, 110, 0, 80, 0)
+//      ..cubicTo(65, 0, 55, 12, 55, 15)
+//      ..close();
+//  }
 
   // heart
-  Path _buildHeartPath2() {
+  Path _buildHeartPath() {
     return Path()
       ..moveTo(50, 45)
       ..cubicTo(20, 10, -45, 60, 50, 125)
       ..moveTo(50, 45)
-      ..cubicTo(80, 10, 145, 60, 50, 125);
+      ..cubicTo(80, 10, 145, 60, 50, 125)
+      ..close();
   }
 
   // heart stroke
@@ -508,8 +512,30 @@ class _AnimatedLiquidCustomProgressIndicatorState
       ..moveTo(50, 58)
       ..cubicTo(33, 10, -43, 60, 50, 117)
       ..moveTo(50, 58)
-      ..cubicTo(67, 10, 143, 60, 50, 117);
+      ..cubicTo(67, 10, 143, 60, 50, 117)
+      ..close();
   }
+}
+
+class HeartStrokePainter extends CustomPainter {
+  Path path;
+  Color color;
+
+  HeartStrokePainter({this.path, this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint();
+    paint
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 1;
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }
 
 class Carroussel extends StatelessWidget {
@@ -523,30 +549,33 @@ class Carroussel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double _viewportFraction = 1 / 6;
+    double _viewportFraction = 1 / 8;
     return StreamBuilder(
       stream: this.bloc.sliderValue,
       builder: (context, AsyncSnapshot<double> snapshot) {
-        pageController = PageController(
-          initialPage: snapshot.data.toInt(),
-          keepPage: true,
-          viewportFraction: _viewportFraction,
-        );
+        if (snapshot.hasData) {
+          pageController = PageController(
+            initialPage: snapshot.data.toInt(),
+            keepPage: true,
+            viewportFraction: _viewportFraction,
+          );
 
-        return Center(
-          child: Container(
-            color: Colors.transparent,
-            child: PageView.builder(
-              itemCount: 36,
-              onPageChanged: (value) {
-                this.bloc.addSliderValue(value.toDouble());
-              },
-              controller: pageController,
-              itemBuilder: (context, index) => angka(index, snapshot),
-              physics: ScrollPhysics(),
+          return Center(
+            child: Container(
+              color: Colors.transparent,
+              child: PageView.builder(
+                itemCount: 40,
+                onPageChanged: (value) {
+                  this.bloc.addSliderValue(value.toDouble());
+                },
+                controller: pageController,
+                itemBuilder: (context, index) => angka(index + 1, snapshot),
+                physics: ScrollPhysics(),
+              ),
             ),
-          ),
-        );
+          );
+        }
+        return Container();
       },
     );
   }
@@ -601,14 +630,15 @@ class Carroussel extends StatelessWidget {
                     child: Text(
                       (index).toString(),
                       style: TextStyle(
-                          fontSize: 15,
-                          color: index == (snapshot.data.toInt() - 2) ||
-                                  index == (snapshot.data.toInt() + 2)
-                              ? Colors.grey[400]
-                              : index == (snapshot.data.toInt() - 1) ||
-                                      index == (snapshot.data.toInt() + 1)
-                                  ? Colors.grey[600]
-                                  : Colors.grey[300]),
+                        fontSize: 15,
+                        color: index == (snapshot.data.toInt() - 2) ||
+                                index == (snapshot.data.toInt() + 2)
+                            ? Colors.grey[400]
+                            : index == (snapshot.data.toInt() - 1) ||
+                                    index == (snapshot.data.toInt() + 1)
+                                ? Colors.grey[600]
+                                : Colors.grey[300],
+                      ),
                     ),
                   ),
                 ),

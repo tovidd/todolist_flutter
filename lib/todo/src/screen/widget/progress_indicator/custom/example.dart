@@ -9,7 +9,7 @@ class Example extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Example liquid progress indicator',
+          Example.routeName,
           style: TextStyle(fontSize: 20),
         ),
       ),

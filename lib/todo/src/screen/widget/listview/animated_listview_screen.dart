@@ -77,19 +77,20 @@ class _AnimatedListViewState extends State<AnimatedListViewScreen> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('AnimatedList'),
+          title: Text(AnimatedListViewScreen.routeName),
           actions: <Widget>[
             IconButton(
-              icon: const Icon(Icons.add_circle),
+              icon: Icon(Icons.add_circle),
               onPressed: _insert,
               tooltip: 'insert a new item',
             ),
             IconButton(
-              icon: const Icon(Icons.remove_circle),
+              icon: Icon(Icons.remove_circle),
               onPressed: _remove,
               tooltip: 'remove the selected item',
             ),
           ],
+
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),

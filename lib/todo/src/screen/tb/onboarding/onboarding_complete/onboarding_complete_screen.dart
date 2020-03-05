@@ -68,7 +68,7 @@ class _OnboardingCompleteScreenState extends State<OnboardingCompleteScreen> {
               child: Column(
                 children: <Widget>[
                   Image.asset(
-                    'assets/ic_tb.png',
+                    'assets/image/ic_tb.png',
                     height: 60,
                   ),
                 ],
@@ -82,7 +82,7 @@ class _OnboardingCompleteScreenState extends State<OnboardingCompleteScreen> {
           child: Column(
             children: <Widget>[
               Image.asset(
-                'assets/ic_smile.png',
+                'assets/image/ic_smile.png',
                 height: 200,
               ),
               SizedBox(height: 40),

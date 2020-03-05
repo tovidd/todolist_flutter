@@ -66,7 +66,7 @@ class _ImagePainterState extends State<ImagePainter> {
 
   String randomImage() {
 //    int random = Random().nextInt(3);
-    String imagePath = 'assets/ic_smile_48px.png';
+    String imagePath = 'assets/image/ic_smile_48px.png';
 
     return imagePath;
   }

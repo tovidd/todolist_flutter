@@ -22,7 +22,7 @@ class AddTodolistScreenState extends State<AddTodolistScreen> {
       builder: (builder) {
         return BottomSheetContent();
       },
-    ); 
+    );
   }
 }
 
@@ -54,8 +54,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
       body: Container(
         child: ListView(
           children: <Widget>[
-            textField(
-                "To do", "Cannot be empty", "", "Write Your To do . . ."),
+            textField("To do", "Cannot be empty", "", "Write Your To do . . ."),
             SizedBox(
               height: 20,
             ),
@@ -68,7 +67,7 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  DateFormat('EEE d MMM yyyy – kk:mm a').format(selectedDate),
+                  DateFormat('EEE, d MMM yyyy —— kk:mm a').format(selectedDate),
                   style: TextStyle(fontSize: 15),
                 ),
                 GestureDetector(
@@ -83,27 +82,29 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
                   },
                 )
               ],
-            ), 
+            ),
             SizedBox(
               height: 20,
             ),
             FlatButton(
               shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(18.0),
-                side: BorderSide(color: Colors.blue)
-              ),
+                  borderRadius: new BorderRadius.circular(18.0),
+                  side: BorderSide(color: Colors.blue)),
               child: SizedBox(
                 width: double.infinity,
-                child: Text("Add Now", textAlign: TextAlign.center,),
-              ), 
-              onPressed: (){
+                child: Text(
+                  "Add Now",
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              onPressed: () {
                 print('Add Now Clicked');
               },
             )
           ],
         ),
         padding: EdgeInsets.all(20),
-      ), 
+      ),
     );
   }
 

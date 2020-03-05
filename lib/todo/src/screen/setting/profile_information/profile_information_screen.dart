@@ -12,8 +12,7 @@ class ProfileInformationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProfileInformationBloc bloc =
-        ProfileInformationProvider.of(context);
+    ProfileInformationBloc bloc = ProfileInformationProvider.of(context);
     bloc.getFeed();
 
     return Scaffold(
@@ -35,13 +34,13 @@ class ProfileInformationScreen extends StatelessWidget {
     );
   }
 
-  Widget buildBody(BuildContext context,
-      Stream<ProfileInformationResponseModel> stream) {
+  Widget buildBody(
+      BuildContext context, Stream<ProfileInformationResponseModel> stream) {
     return Container(
       child: StreamBuilder(
         stream: stream,
-        builder: (context,
-            AsyncSnapshot<ProfileInformationResponseModel> snapshot) {
+        builder:
+            (context, AsyncSnapshot<ProfileInformationResponseModel> snapshot) {
           if (!snapshot.hasData || snapshot.data == null) {
             // return spinkit();
             return Loading().gary(context);
@@ -66,7 +65,7 @@ class ProfileInformationScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image.asset(
-                  'assets/ic_408_timeout.png',
+                  'assets/image/ic_408_timeout.png',
                   height: 150,
                   width: 150,
                 ),
@@ -82,8 +81,7 @@ class ProfileInformationScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              ProfileInformationScreen()),
+                          builder: (context) => ProfileInformationScreen()),
                     );
                   },
                 )
