@@ -11,6 +11,7 @@ import 'picker/cupertino_date_picker/cupertino_date_picker_screen.dart';
 import 'animation/scale_transition/scale_transition_screen.dart';
 import 'asset_read/asset_text.dart';
 import 'slider/balloon_slider/balloon_slider_screen.dart';
+import 'animation/confetti/confetti_screen.dart';
 
 class WidgetScreen extends StatelessWidget {
   static const routeName = '/widget_screen';
@@ -43,6 +44,7 @@ class WidgetScreen extends StatelessWidget {
           card(context, ScaleTransitionScreen.routeName),
           card(context, AssetText.routeName),
           card(context, BalloonSliderScreen.routeName),
+          card(context, ConfettiScreen.routeName),
         ],
       ),
     );
