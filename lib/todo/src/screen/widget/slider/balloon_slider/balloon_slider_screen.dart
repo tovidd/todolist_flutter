@@ -12,8 +12,7 @@ class BalloonSliderScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        centerTitle: true,
-        title: Text("BALLOON SLIDER",
+        title: Text(BalloonSliderScreen.routeName,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
       ),
       body: SizedBox.expand(

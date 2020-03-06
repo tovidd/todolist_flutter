@@ -158,7 +158,7 @@ class _BalloonSliderRender extends RenderBox {
 
   BalloonSliderState _state;
 
-  bool _active = true; //ganti ini jadi false
+  bool _active = false; //ganti ini jadi false
   double _trackHeight = 4;
   double _currentDragValue = 0.0;
 

@@ -9,17 +9,19 @@ class ScaleTransitionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MyHomePage(),
+      body: Body(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class Body extends StatelessWidget {
+  static const circle_delay = 500;
+  static const circle_duration = 2;
+  static const content_delay = 1000;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    int circle_delay = 1;
-    int circle_duration = 5;
 
     return Container(
       height: size.height,
@@ -35,7 +37,7 @@ class MyHomePage extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           FutureBuilder(
-            future: Future.delayed(Duration(seconds: circle_delay)),
+            future: Future.delayed(Duration(milliseconds: circle_delay)),
             builder: (c, s) => s.connectionState == ConnectionState.done
                 ? Animator(
                     tweenMap: {
@@ -44,7 +46,7 @@ class MyHomePage extends StatelessWidget {
                     cycles: 0,
                     duration: Duration(seconds: circle_duration),
                     curve: Curves.fastLinearToSlowEaseIn,
-                    repeats: 5,
+                    repeats: 1,
                     builderMap: (anim) => Transform.scale(
                       scale: anim['scale'].value,
                       child: Container(
@@ -63,27 +65,120 @@ class MyHomePage extends StatelessWidget {
                   )
                 : Container(),
           ),
-          FutureBuilder(
-            future: Future.delayed(Duration(seconds: circle_duration)),
-            builder: (c, s) => s.connectionState == ConnectionState.done
-                ? Container(
-                    color: Colors.transparent,
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: size.width * (2.5 / 4),
-                      height: size.width * (2.5 / 4),
-                      child: Center(
-                        child: Image.asset(
-                          ImageAsset().ic_avocado(),
-                          height: 100,
+//          FutureBuilder(
+//            future: Future.delayed(Duration(milliseconds: content_delay)),
+//            builder: (c, s) => s.connectionState == ConnectionState.done
+//                ? Animator(
+//                    tweenMap: {
+//                      "opacity": Tween<double>(begin: 0.7, end: 1),
+//                      "translation":
+//                          Tween<Offset>(begin: Offset(0.5, 0), end: Offset.zero)
+//                    },
+//                    cycles: 0,
+//                    duration: Duration(milliseconds: 500),
+//                    curve: Curves.fastLinearToSlowEaseIn,
+//                    repeats: 1,
+//                    builderMap: (Map<String, Animation> anim) => FadeTransition(
+//                      opacity: anim["opacity"],
+//                      child: FractionalTranslation(
+//                        translation: anim["translation"].value,
+//                        child: Container(
+//                          color: Colors.transparent,
+//                          alignment: Alignment.center,
+//                          child: Container(
+//                            width: size.width * (2.5 / 4),
+//                            height: size.width * (2.5 / 4),
+//                            child: Center(
+//                              child: Image.asset(
+//                                ImageAsset().ic_avocado(),
+//                                height: 100,
+//                              ),
+//                            ),
+//                          ),
+//                        ),
+//                      ),
+//                    ),
+//                  )
+//                : Container(),
+//          ),
+          carouselItem(
+              pic: ImageAsset().ic_avocado(),
+              title: 'Trusted',
+              description:
+                  'Data Mums tidak akan tersebar luas dan\nterjaga privasinya',
+              size: size),
+        ],
+      ),
+    );
+  }
+
+  Widget carouselItem(
+      {String pic, String title, String description, Size size}) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        FutureBuilder(
+          future: Future.delayed(Duration(milliseconds: content_delay)),
+          builder: (c, s) => s.connectionState == ConnectionState.done
+              ? Animator(
+                  tweenMap: {
+                    "opacity": Tween<double>(begin: 0.7, end: 1),
+                    "translation":
+                        Tween<Offset>(begin: Offset(0.5, 0), end: Offset.zero)
+                  },
+                  cycles: 0,
+                  duration: Duration(milliseconds: 500),
+                  curve: Curves.fastLinearToSlowEaseIn,
+                  repeats: 1,
+                  builderMap: (Map<String, Animation> anim) => FadeTransition(
+                    opacity: anim["opacity"],
+                    child: FractionalTranslation(
+                      translation: anim["translation"].value,
+                      child: Container(
+                        color: Colors.transparent,
+                        alignment: Alignment.center,
+                        child: Container(
+                          child: Center(
+                            child: Image.asset(
+                              ImageAsset().ic_avocado(),
+                              height: 100,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  )
-                : Container(),
+                  ),
+                )
+              : Container(),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Center(
+          child: Text(
+            title,
+            style: TextStyle(
+              fontSize: 30,
+              color: Colors.red,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 2.0,
+            ),
           ),
-        ],
-      ),
+        ),
+        SizedBox(
+          height: 5,
+        ),
+        Center(
+          child: Text(
+            description,
+            style: TextStyle(
+              fontSize: 20,
+              color: Colors.red,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
     );
   }
 }
