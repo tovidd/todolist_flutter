@@ -21,13 +21,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return scaffold(context);
-   initTargets();
+    return scaffold(context);
+  //  initTargets();
 
-   return StatefulWrapper(
-     onInit: afterLayout(context),
-     child: scaffold(context),
-   );
+  //  return StatefulWrapper(
+  //    onInit: afterLayout(context),
+  //    child: scaffold(context),
+  //  );
   }
 
   scaffold(BuildContext context) {
