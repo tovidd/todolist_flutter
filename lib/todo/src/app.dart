@@ -6,6 +6,7 @@ import 'bloc/setting/change_password/change_password_provider.dart';
 import 'bloc/setting/push_notifications/push_notifications_provider.dart';
 import 'bloc/setting/rate_our_app/rate_our_app_provider.dart';
 import 'bloc/widget/slider/custom_number_picker_provider.dart';
+import 'bloc/widget/picker/cupertino_date_picker/cupertino_date_picker_provider.dart';
 import 'bloc/tb/kehamilan/kehamilan_provider.dart';
 import 'bloc/tb/tema/tema_provider.dart';
 
@@ -44,18 +45,20 @@ import 'screen/tb/onboarding/onboarding_complete/onboarding_complete_screen.dart
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return TemaProvider(
-      child: KehamilanProvider(
-        child: CustomNumberPickerProvider(
-          child: RateOurAppProvider(
-            child: PushNotificationsProvider(
-              child: ChangePasswordProvider(
-                child: ProfileInformationProvider(
-                  child: TodolistProvider(
-                    child: MaterialApp(
-                      title: 'Dashboard',
-                      onGenerateRoute: routes,
-                      debugShowCheckedModeBanner: false,
+    return CupertinoDatePickerProvider(
+      child: TemaProvider(
+        child: KehamilanProvider(
+          child: CustomNumberPickerProvider(
+            child: RateOurAppProvider(
+              child: PushNotificationsProvider(
+                child: ChangePasswordProvider(
+                  child: ProfileInformationProvider(
+                    child: TodolistProvider(
+                      child: MaterialApp(
+                        title: 'Dashboard',
+                        onGenerateRoute: routes,
+                        debugShowCheckedModeBanner: false,
+                      ),
                     ),
                   ),
                 ),

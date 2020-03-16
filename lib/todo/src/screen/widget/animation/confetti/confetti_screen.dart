@@ -61,10 +61,10 @@ class _MyAppState extends State<MyApp> {
           alignment: Alignment.centerRight,
           child: ConfettiWidget(
             confettiController: _controllerCenterRight,
-            blastDirection: pi,
+            blastDirection: pi + 0.5,
             // radial value - LEFT
             emissionFrequency: 0.05,
-            numberOfParticles: 10,
+            numberOfParticles: 2,
             shouldLoop: false,
             colors: [
               Colors.green,
