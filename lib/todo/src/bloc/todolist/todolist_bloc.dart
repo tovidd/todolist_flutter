@@ -1,7 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 
 import '../../model/todolist/todolist_response_model.dart';
-import '../../resource/repository.dart';
+import '../../resource/constant/repository.dart';
 
 class TodolistBloc {
   Repository _repository = Repository();

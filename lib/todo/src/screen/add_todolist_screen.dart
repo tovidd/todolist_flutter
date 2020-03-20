@@ -67,7 +67,8 @@ class _BottomSheetContentState extends State<BottomSheetContent> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  DateFormat('EEE, d MMM yyyy —— kk:mm a').format(selectedDate),
+                  DateFormat('EEE, d MMMM yyyy —— kk:mm a')
+                      .format(selectedDate),
                   style: TextStyle(fontSize: 15),
                 ),
                 GestureDetector(

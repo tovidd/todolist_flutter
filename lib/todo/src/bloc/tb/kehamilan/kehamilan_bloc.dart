@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 
-import '../../../resource/repository.dart';
+import '../../../resource/constant/repository.dart';
 
 class KehamilanBloc {
   Repository _repository = Repository();

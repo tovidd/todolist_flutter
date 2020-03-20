@@ -1,6 +1,6 @@
 import 'package:rxdart/rxdart.dart';
 
-import '../../../resource/repository.dart';
+import '../../../resource/constant/repository.dart';
 import '../../../model/tb/tema/tema_response_model.dart';
 
 class TemaBloc {

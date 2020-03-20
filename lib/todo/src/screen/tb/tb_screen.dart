@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/todo/src/screen/tb/home/polling_screen.dart';
+import 'package:todolist/todo/src/screen/tb/registrasi/complete_registration_screen.dart';
+import 'package:todolist/todo/src/screen/tb/registrasi/input_phone_screen.dart';
 
 import 'kehamilan/kehamilan_screen.dart';
 import 'tema/tema_screen.dart';
@@ -27,6 +30,9 @@ class TBScreen extends StatelessWidget {
           card(context, KehamilanScreen.routeName),
           card(context, TemaScreen.routeName),
           card(context, OnboardingCompleteScreen.routeName),
+          card(context, CompleteRegistrationScreen.routeName),
+          card(context, PollingScreen.routeName),
+          card(context, InputPhoneScreen.routeName),
         ],
       ),
     );

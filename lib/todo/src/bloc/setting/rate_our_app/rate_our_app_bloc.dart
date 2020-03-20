@@ -1,7 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 
 import '../../../model/push_notifications/push_notifications_response_model.dart';
-import '../../../resource/repository.dart';
+import '../../../resource/constant/repository.dart';
 
 class RateOurAppBloc{
   Repository _repository= Repository();

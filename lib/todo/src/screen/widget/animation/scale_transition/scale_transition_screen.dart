@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:animator/animator.dart';
-import 'package:todolist/todo/src/resource/image_assets.dart';
+import 'package:todolist/todo/src/resource/constant/image_assets.dart';
 
 class ScaleTransitionScreen extends StatelessWidget {
   static const routeName = '/scale_transition';

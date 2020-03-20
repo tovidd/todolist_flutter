@@ -1,7 +1,7 @@
 import 'package:rxdart/rxdart.dart';
 
 import '../../../model/change_password/password_list_response_model.dart';
-import '../../../resource/repository.dart';
+import '../../../resource/constant/repository.dart';
 
 class ChangePasswordBloc {
   Repository _repository= Repository();

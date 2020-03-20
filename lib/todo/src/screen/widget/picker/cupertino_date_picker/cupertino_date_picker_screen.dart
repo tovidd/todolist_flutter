@@ -1,8 +1,14 @@
+import 'dart:math';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:todolist/todo/src/bloc/widget/picker/cupertino_date_picker/cupertino_date_picker_bloc.dart';
 import 'package:todolist/todo/src/bloc/widget/picker/cupertino_date_picker/cupertino_date_picker_provider.dart';
+import 'package:todolist/todo/src/locale/app_localizations.dart';
+import 'package:todolist/todo/src/locale/langs.dart';
+import 'package:todolist/todo/src/screen/widget/animation/confetti/confetti.dart';
 
 class CupertinoDatePickerScreen extends StatefulWidget {
   static const routeName = '/cupertino_date_picker';
@@ -13,6 +19,45 @@ class CupertinoDatePickerScreen extends StatefulWidget {
 }
 
 class _CupertinoDatePickerScreenState extends State<CupertinoDatePickerScreen> {
+  Locale locale = Locale(Langs.id, Langs.ID);
+
+  @override
+  Widget build(BuildContext context) {
+    CupertinoDatePickerBloc bloc = CupertinoDatePickerProvider.of(context);
+
+    return StreamBuilder(
+      stream: bloc.language,
+      builder: (context, snapshot) {
+        return MaterialApp(
+          home: MyHome(),
+          supportedLocales: [
+            Locale(Langs.en, Langs.EN),
+            Locale(Langs.it, Langs.IT),
+            Locale(Langs.id, Langs.ID),
+          ],
+          locale: snapshot.data == null ? this.locale : snapshot.data,
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          localeResolutionCallback: (locale, supportedLocales) {
+            for (var supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode &&
+                  supportedLocale.countryCode == locale.countryCode) {
+                return supportedLocale;
+              }
+            }
+            return supportedLocales.first;
+          },
+        );
+      },
+    );
+  }
+}
+
+class MyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CupertinoDatePickerBloc bloc = CupertinoDatePickerProvider.of(context);
@@ -21,8 +66,10 @@ class _CupertinoDatePickerScreenState extends State<CupertinoDatePickerScreen> {
       appBar: AppBar(
         title: Text(CupertinoDatePickerScreen.routeName),
       ),
-      body: Center(
+      body: Container(
+        alignment: Alignment.center,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             RaisedButton(
               child: Text('Popup'),
@@ -113,11 +160,18 @@ class _CupertinoDatePickerScreenState extends State<CupertinoDatePickerScreen> {
                     child: StreamBuilder(
                         stream: bloc.bottomSheetCupertinoDatePickerValue,
                         builder: (context, snapshot) {
+//                          return Container(
+//                            child: Text(AppLocalizations.of(context)?.translate(
+//                                    'cupertino_date_picker_bs_title') ??
+//                                'null'),
+//                          );
                           return CupertinoDatePicker(
                             initialDateTime: DateTime.now(),
                             onDateTimeChanged: (date) {
                               bloc.addBottomSheetCupertinoDatePickerValue(
-                                  DateFormat('EEE, d MMM yyyy').format(date));
+                                  DateFormat(
+                                          'EEE, d MMMM yyyy')
+                                      .format(date));
                               print(date);
                             },
                             mode: CupertinoDatePickerMode.date,
@@ -147,16 +201,86 @@ class _CupertinoDatePickerScreenState extends State<CupertinoDatePickerScreen> {
   }
 }
 
-class CustomDialog extends StatelessWidget {
+class CustomDialog extends StatefulWidget {
+  @override
+  _CustomDialogState createState() => _CustomDialogState();
+}
+
+class _CustomDialogState extends State<CustomDialog> {
+  ConfettiController _controllerMyLeft, _controllerMyRight;
+
+  @override
+  void initState() {
+    _controllerMyLeft = ConfettiController(duration: Duration(seconds: 3));
+    _controllerMyRight = ConfettiController(duration: Duration(seconds: 3));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controllerMyLeft.dispose();
+    _controllerMyRight.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(Consts.padding),
-      ),
-      elevation: 0.0,
-      backgroundColor: Colors.transparent,
-      child: dialogContent(context),
+    _controllerMyLeft.play();
+    _controllerMyRight.play();
+
+    return Stack(
+      children: <Widget>[
+        Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(Consts.padding),
+          ),
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+          child: dialogContent(context),
+        ),
+        Positioned(
+          top: 250,
+          right: 0,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: ConfettiWidget(
+              confettiController: _controllerMyLeft,
+//              blastDirection: pi + 0.5,
+              blastDirection: pi,
+              emissionFrequency: 0.10,
+              numberOfParticles: 2,
+              shouldLoop: false,
+              colors: [
+                Colors.green,
+                Colors.blue,
+                Colors.pink,
+                Colors.deepOrange
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          top: 250,
+          left: 50,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: ConfettiWidget(
+              confettiController: _controllerMyRight,
+//              blastDirection: -0.5,
+              blastDirection: 0,
+              emissionFrequency: 0.10,
+              numberOfParticles: 2,
+              shouldLoop: false,
+              colors: [
+                Colors.green,
+                Colors.blue,
+                Colors.pink,
+                Colors.deepOrange
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 
@@ -220,3 +344,28 @@ class Consts {
 
   static const double padding = 10.0;
 }
+
+//https://medium.com/@puneetsethi25/flutter-internationalization-switching-locales-manually-f182ec9b8ff0
+
+// app_localization.dart
+
+// MaterialApp
+// localizationsDelegates: [
+//    GlobalMaterialLocalizations.delegate,
+//    GlobalWidgetsLocalizations.delegate,
+//    GlobalCupertinoLocalizations.delegate,
+//    AppLocalizations.delegate,
+// ],
+// supportedLocales: [
+//    Locale('id', 'ID'),
+//    Locale('en', 'US'),
+// ],
+
+// intl_translation: ^0.17.9
+
+// terminal-> flutter pub run intl_translation:extract_to_arb --output-dir=lib/l10n/ lib/locale/app_localization.dart
+
+// munculin message
+// terminal-> flutter pub run intl_translation:generate_from_arb --output-dir=lib/l10n/ --no-use-deferred-loading lib/l10n/intl_messages.arb lib/l10n/intl_de.arb lib/l10n/intl_en.arb lib/locale/app_localization.dart
+
+// sepertinya folder language tidak butuh, karena pake arb file bukan json

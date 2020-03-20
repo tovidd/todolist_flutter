@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/todo/src/screen/widget/locale/language_screen.dart';
+import 'package:todolist/todo/src/screen/widget/picker/country_picker/country_picker_screen.dart';
 
 import 'slider/custom_number_picker_screen.dart';
 import 'slider/review_slider.dart';
@@ -45,6 +47,8 @@ class WidgetScreen extends StatelessWidget {
           card(context, AssetText.routeName),
           card(context, BalloonSliderScreen.routeName),
           card(context, ConfettiScreen.routeName),
+          card(context, CountryPickerScreen.routeName),
+          card(context, LanguageScreen.routeName),
         ],
       ),
     );

@@ -6,7 +6,7 @@ import '../bloc/todolist/todolist_provider.dart';
 import '../bloc/todolist/todolist_bloc.dart';
 import '../model/todolist/todolist_model.dart';
 import '../model/todolist/todolist_response_model.dart';
-import '../resource/loading.dart';
+import '../resource/constant/loading.dart';
 
 
 class TodolistScreen extends StatelessWidget {

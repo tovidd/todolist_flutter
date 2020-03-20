@@ -4,7 +4,7 @@ import '../../../model/change_password/password_list_response_model.dart';
 import 'change_password_list_item.dart';
 import '../../../bloc/setting/change_password/change_password_bloc.dart';
 import '../../../bloc/setting/change_password/change_password_provider.dart';
-import '../../../resource/loading.dart';
+import '../../../resource/constant/loading.dart';
 
 class ChangePasswordScreen extends StatelessWidget {
   static const routeName = '/setting_change_password';

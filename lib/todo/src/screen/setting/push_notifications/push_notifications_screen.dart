@@ -3,7 +3,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 
 import '../../../bloc/setting/push_notifications/push_notifications_provider.dart';
 import '../../../model/push_notifications/push_notifications_response_model.dart';
-import '../../../resource/loading.dart';
+import '../../../resource/constant/loading.dart';
 
 class PushNotificationsScreen extends StatelessWidget {
   static const routeName = '/setting_push_notifications';

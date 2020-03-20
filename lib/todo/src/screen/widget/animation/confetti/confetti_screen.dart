@@ -12,7 +12,7 @@ class ConfettiScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        showPerformanceOverlay: true,
+//        showPerformanceOverlay: true,
         title: 'Confetti',
         home: Scaffold(
           backgroundColor: Colors.white,
@@ -32,6 +32,8 @@ class _MyAppState extends State<MyApp> {
   ConfettiController _controllerTopCenter;
   ConfettiController _controllerBottonCenter;
 
+  ConfettiController _controllerMyLeft, _controllerMyRight;
+
   @override
   void initState() {
     _controllerCenterRight =
@@ -40,6 +42,8 @@ class _MyAppState extends State<MyApp> {
     _controllerTopCenter = ConfettiController(duration: Duration(seconds: 10));
     _controllerBottonCenter =
         ConfettiController(duration: Duration(seconds: 10));
+    _controllerMyLeft = ConfettiController(duration: Duration(seconds: 3));
+    _controllerMyRight = ConfettiController(duration: Duration(seconds: 3));
     super.initState();
   }
 
@@ -49,6 +53,8 @@ class _MyAppState extends State<MyApp> {
     _controllerCenterLeft.dispose();
     _controllerTopCenter.dispose();
     _controllerBottonCenter.dispose();
+    _controllerMyLeft.dispose();
+    _controllerMyRight.dispose();
     super.dispose();
   }
 
@@ -56,6 +62,72 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        // MY LEFT
+        Positioned(
+          top: 150,
+          right: 0,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: ConfettiWidget(
+              confettiController: _controllerMyLeft,
+              blastDirection: pi + 0.5,
+              emissionFrequency: 0.10,
+              numberOfParticles: 2,
+              shouldLoop: false,
+              colors: [
+                Colors.green,
+                Colors.blue,
+                Colors.pink,
+                Colors.deepOrange
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          top: 150,
+          right: 0,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: FlatButton(
+                onPressed: () {
+                  _controllerMyLeft.play();
+                },
+                child: _display('my left')),
+          ),
+        ),
+        // MY RIGHT
+        Positioned(
+          top: 150,
+          left: 50,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: ConfettiWidget(
+              confettiController: _controllerMyRight,
+              blastDirection: -0.5,
+              emissionFrequency: 0.10,
+              numberOfParticles: 2,
+              shouldLoop: false,
+              colors: [
+                Colors.green,
+                Colors.blue,
+                Colors.pink,
+                Colors.deepOrange
+              ],
+            ),
+          ),
+        ),
+        Positioned(
+          top: 150,
+          left: 50,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: FlatButton(
+                onPressed: () {
+                  _controllerMyRight.play();
+                },
+                child: _display('my right')),
+          ),
+        ),
         //CENTER RIGHT -- Emit left
         Align(
           alignment: Alignment.centerRight,

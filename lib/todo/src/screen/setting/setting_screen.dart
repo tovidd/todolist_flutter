@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/todo/src/resource/image_assets.dart';
+import 'package:todolist/todo/src/resource/constant/image_assets.dart';
 
 import '../../screen/setting/change_password/change_password_screen.dart';
 import '../../screen/setting/privacy_policy/privacy_policy_screen.dart';

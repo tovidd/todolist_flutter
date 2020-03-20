@@ -3,7 +3,7 @@ import 'package:animated_floatactionbuttons/animated_floatactionbuttons.dart';
 import 'package:tutorial_coach_mark/animated_focus_light.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
 
-import '../resource/stateful_wrapper.dart';
+import '../resource/constant/stateful_wrapper.dart';
 import 'todolist_screen.dart';
 import 'add_todolist_screen.dart';
 import 'delete_todolist_screen.dart';

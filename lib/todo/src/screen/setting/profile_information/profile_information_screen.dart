@@ -5,7 +5,7 @@ import '../../../model/profile_information/profile_information_model.dart';
 import '../../../model/profile_information/profile_information_response_model.dart';
 import '../../../bloc/setting/profile_information/profile_information_bloc.dart';
 import '../../../bloc/setting/profile_information/profile_information_provider.dart';
-import '../../../resource/loading.dart';
+import '../../../resource/constant/loading.dart';
 
 class ProfileInformationScreen extends StatelessWidget {
   static const routeName = '/setting_profile_information';

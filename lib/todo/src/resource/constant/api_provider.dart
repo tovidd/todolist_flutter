@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' show Client;
 
-import '../model/todolist/todolist_response_model.dart';
-import '../model/profile_information/profile_information_response_model.dart';
-import '../model/change_password/password_list_response_model.dart';
-import '../model/push_notifications/push_notifications_response_model.dart';
-import '../model/tb/tema/tema_response_model.dart';
+import '../../model/todolist/todolist_response_model.dart';
+import '../../model/profile_information/profile_information_response_model.dart';
+import '../../model/change_password/password_list_response_model.dart';
+import '../../model/push_notifications/push_notifications_response_model.dart';
+import '../../model/tb/tema/tema_response_model.dart';
 
 class ApiProvider {
   Client client = Client();

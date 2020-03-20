@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/todo/src/locale/langs.dart';
+import 'package:todolist/todo/src/screen/tb/registrasi/input_phone_screen.dart';
+import 'package:todolist/todo/src/screen/widget/locale/language_screen.dart';
+import 'package:todolist/todo/src/screen/widget/picker/country_picker/country_picker_screen.dart';
 
 import 'bloc/setting/profile_information/profile_information_provider.dart';
 import 'bloc/todolist/todolist_provider.dart';
@@ -41,8 +45,12 @@ import 'screen/tb/tb_screen.dart';
 import 'screen/tb/kehamilan/kehamilan_screen.dart';
 import 'screen/tb/tema/tema_screen.dart';
 import 'screen/tb/onboarding/onboarding_complete/onboarding_complete_screen.dart';
+import 'screen/tb/registrasi/complete_registration_screen.dart';
+import 'screen/tb/home/polling_screen.dart';
 
 class App extends StatelessWidget {
+  Locale locale = Locale(Langs.id, Langs.ID);
+
   @override
   Widget build(BuildContext context) {
     return CupertinoDatePickerProvider(
@@ -164,6 +172,21 @@ class App extends StatelessWidget {
         break;
       case ConfettiScreen.routeName:
         return MaterialPageRoute(builder: (_) => ConfettiScreen());
+        break;
+      case CompleteRegistrationScreen.routeName:
+        return MaterialPageRoute(builder: (_) => CompleteRegistrationScreen());
+        break;
+      case PollingScreen.routeName:
+        return MaterialPageRoute(builder: (_) => PollingScreen());
+        break;
+      case CountryPickerScreen.routeName:
+        return MaterialPageRoute(builder: (_) => CountryPickerScreen());
+        break;
+      case InputPhoneScreen.routeName:
+        return MaterialPageRoute(builder: (_) => InputPhoneScreen());
+        break;
+      case LanguageScreen.routeName:
+        return MaterialPageRoute(builder: (_) => LanguageScreen());
         break;
       default:
         MaterialPageRoute(builder: (_) => pageNotFound());

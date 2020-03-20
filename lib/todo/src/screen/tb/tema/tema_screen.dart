@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/todo/src/resource/constant/constant.dart';
 import '../../../model/tb/tema/tema_response_model.dart';
 import '../../../model/tb/tema/tema_model.dart';
 import 'dart:ui' as ui;
 import '../../../bloc/tb/tema/tema_bloc.dart';
 import '../../../bloc/tb/tema/tema_provider.dart';
-
-import '../../../resource/constant.dart';
 
 class TemaScreen extends StatelessWidget {
   static const routeName = '/tema';
